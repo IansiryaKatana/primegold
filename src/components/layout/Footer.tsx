@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, type ReactNode } from 'react'
-import { Crown, Mail, MapPin, Phone } from 'lucide-react'
+import { Mail, MapPin, Phone } from 'lucide-react'
+import { BrandLogo } from '@/components/shared/BrandLogo'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -123,12 +124,8 @@ function NewsletterForm() {
 function BrandColumn() {
   return (
     <FooterColumn className="w-full">
-      <a href={links.home} className="flex w-full items-center gap-3">
-        <Crown className="size-9 shrink-0 text-gold" aria-hidden />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <span className="text-[10px] tracking-[0.2em] text-gold">PRIME GOLD</span>
-          <span className="text-base tracking-wide text-white md:text-lg">TRADING</span>
-        </div>
+      <a href={links.home} className="flex w-full items-center">
+        <BrandLogo className="h-11 max-w-[280px] md:h-12" />
       </a>
       <p className="w-full text-sm font-extralight leading-relaxed text-white/70">
         {brand.blurb}

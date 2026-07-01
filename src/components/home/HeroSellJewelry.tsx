@@ -89,7 +89,10 @@ export function HeroSellJewelry() {
               className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start"
             >
               {copy.trustBullets.map((bullet, i) => (
-                <span key={bullet} className="flex items-center gap-1.5">
+                <span
+                  key={bullet}
+                  className="flex items-center gap-1.5 text-sm text-white/80 md:text-base"
+                >
                   {[Lock, MapPin, Flag][i] && (
                     <span className="text-gold">
                       {i === 0 && <Lock className="size-3.5" />}

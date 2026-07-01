@@ -1,6 +1,7 @@
 'use client'
 
-import { Crown, Phone, Search, User } from 'lucide-react'
+import { Phone, Search, User } from 'lucide-react'
+import { BrandLogo } from '@/components/shared/BrandLogo'
 import { navLinks } from '@/lib/links'
 import { links } from '@/lib/links'
 import { brand } from '@/data/copy'
@@ -15,16 +16,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 bg-emerald-deep shadow-lg">
       <Container>
         <div className="flex items-center gap-3 py-3 sm:gap-4">
-          <a href={links.home} className="flex min-w-0 shrink-0 items-center gap-2">
-            <Crown className="size-8 text-gold" />
-            <div className="hidden flex-col sm:flex">
-              <span className="text-[10px] tracking-[0.2em] text-gold">
-                PRIME GOLD
-              </span>
-              <span className="text-base tracking-wide text-white md:text-lg">
-                TRADING
-              </span>
-            </div>
+          <a href={links.home} className="flex min-w-0 shrink-0 items-center">
+            <BrandLogo className="h-9 sm:h-10 md:h-11" />
           </a>
 
           <div className="mx-auto hidden min-w-0 max-w-md flex-1 items-center gap-0 lg:flex">

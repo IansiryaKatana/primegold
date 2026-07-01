@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import {
   ChevronRight,
-  Crown,
   MapPin,
   Menu,
   Phone,
@@ -12,6 +11,7 @@ import {
   TrendingUp,
   User,
 } from 'lucide-react'
+import { BrandLogo } from '@/components/shared/BrandLogo'
 import { brand } from '@/data/copy'
 import { footerNavColumns, links } from '@/lib/links'
 import { Button } from '@/components/ui/button'
@@ -67,12 +67,9 @@ export function MobileNavDrawer() {
       >
         <div className="shrink-0 bg-emerald-deep px-6 pb-5 pt-6">
           <SheetHeader className="space-y-1 pr-8 text-left">
-            <div className="flex items-center gap-3">
-              <Crown className="size-8 shrink-0 text-gold" aria-hidden />
-              <div>
-                <p className="text-[10px] tracking-[0.2em] text-gold">PRIME GOLD</p>
-                <SheetTitle className="text-lg text-white">Menu</SheetTitle>
-              </div>
+            <div className="flex flex-col gap-3">
+              <BrandLogo className="h-9 max-w-[220px]" />
+              <SheetTitle className="text-lg text-white">Menu</SheetTitle>
             </div>
             <SheetDescription className="sr-only">
               Site navigation, search, and quick links
