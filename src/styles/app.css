@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pliant", ui-sans-serif, system-ui, sans-serif;
+  --color-emerald-deep: #003d2b;
+  --color-emerald-dark: #001f17;
+  --color-emerald-hover: #002a1e;
+  --color-gold: #d6a43b;
+  --color-gold-hover: #c9962e;
+  --color-gold-soft: #f3d17a;
+  --color-gold-light: #e7bb56;
+  --color-gold-surface: #fce8b2;
+  --color-cream: #fce8b2;
+  --color-image-surface: #f5f5f5;
+  --color-navy: #1e3a8a;
+  --color-navy-hover: #172e6e;
+  --color-warm-border: #e5e0d5;
+  --color-muted-text: #6f746d;
+  --color-primary-text: #17382b;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.375rem;
+  --radius-2xl: 0.375rem;
+}
+
+@layer base {
+  * {
+    @apply border-warm-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+
+  body {
+    @apply bg-white font-sans font-extralight text-primary-text antialiased;
+    overflow-x: clip;
+  }
+
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400;
+  }
+
+  p,
+  a,
+  li,
+  span,
+  div,
+  input,
+  select,
+  textarea,
+  label,
+  th,
+  td,
+  strong,
+  b {
+    font-weight: 200;
+  }
+
+  button {
+    font-weight: 400;
+  }
+}
+
+@layer utilities {
+  .text-desc {
+    @apply text-base font-extralight leading-relaxed text-muted-text md:text-lg;
+  }
+
+  .text-heading {
+    @apply text-4xl tracking-tight md:text-5xl lg:text-6xl;
+  }
+
+  .text-heading-inverse {
+    @apply text-4xl tracking-tight text-white md:text-5xl lg:text-6xl;
+  }
+
+  .text-heading-lg {
+    @apply text-4xl tracking-tight sm:text-5xl md:text-6xl lg:text-7xl;
+  }
+}
+
+/* Keep Leaflet layers inside the map card — never above site chrome */
+.branch-map .leaflet-container {
+  z-index: 0 !important;
+}
+
+.branch-map .leaflet-tile-pane {
+  z-index: 1 !important;
+}
+
+.branch-map .leaflet-overlay-pane {
+  z-index: 2 !important;
+}
+
+.branch-map .leaflet-shadow-pane {
+  z-index: 3 !important;
+}
+
+.branch-map .leaflet-marker-pane {
+  z-index: 4 !important;
+}
+
+.branch-map .leaflet-tooltip-pane {
+  z-index: 5 !important;
+}
+
+.branch-map .leaflet-popup-pane {
+  z-index: 6 !important;
+}
+
+.branch-map .leaflet-top,
+.branch-map .leaflet-bottom {
+  z-index: 7 !important;
+}
+
+@keyframes trust-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.trust-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: trust-marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-marquee-track {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.75rem;
+  }
+}

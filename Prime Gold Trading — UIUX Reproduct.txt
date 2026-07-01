@@ -1,0 +1,1128 @@
+Prime Gold Trading — UI/UX Reproduction Breakdown
+
+This reference is a premium gold trading / precious metals ecommerce + lead-generation landing page. The design combines luxury finance, retail product sales, sell-your-gold conversion funnels, appointment booking, branch discovery, trust-building, and investment education into one long-form commercial homepage.
+
+The page should feel:
+
+Luxury. Trustworthy. Financially secure. Retail-ready. Conversion-focused.
+
+The dominant aesthetic is deep emerald green + metallic gold + white luxury spacing, supported by product photography, trust badges, calculator UI, reviews, and appointment forms.
+
+1. Overall Page Strategy
+Primary Business Goals
+
+The layout is designed to convert three types of users:
+
+User Type	Goal	Primary CTA
+Seller	Wants to sell jewelry, gold, silver, coins	Book an Appointment / Get Your Offer Now
+Buyer	Wants to buy gold or silver bars	View Product / Shop Products
+Investor	Wants to calculate returns or learn about gold	Calculate My Returns / Learn More
+
+The homepage acts as a hybrid ecommerce + appointment funnel + trust landing page.
+
+2. Page Layout Anatomy
+
+The page is vertically structured into many stacked conversion sections:
+
+1. Top market ticker bar
+2. Main navigation / search / account / cart
+3. Hero section: Sell jewelry promotion
+4. Trust headline section
+5. Feature badge strip
+6. Best-selling gold product cards
+7. Investment calculator
+8. Gold insights carousel
+9. Silver promotional banner
+10. Location finder + appointment booking form
+11. Comparison table + reviews card
+12. FAQ accordion
+13. Customer testimonials
+14. Press / recognition logos
+15. Items we buy cards
+16. Sell-your-items promotional strip
+17. Global reach / local support section
+18. Footer with navigation, contact, newsletter, payment logos
+
+This is a long-scroll homepage built to answer every major objection:
+
+Is this company trustworthy?
+Can I buy gold online?
+Can I sell my jewelry?
+Is pricing fair?
+Are there locations near me?
+Can I book an appointment?
+What types of items do they buy?
+Do other people trust them?
+Are they recognized by known publications?
+3. Visual Design System
+Brand Mood
+
+The brand feels like:
+
+Luxury bullion dealer
+Established financial institution
+Gold investment advisory
+High-trust jewelry buyer
+Premium but accessible ecommerce brand
+Core Palette
+Token	Color Direction	Usage
+Deep Emerald	#003D2B / #00422E	Header, footer, buttons, dark banners
+Dark Forest	#001F17	Top ticker, hero overlays
+Metallic Gold	#D6A43B / #E7BB56	CTA buttons, icons, highlights
+Soft Gold	#F3D17A	Hover states, badge accents
+White	#FFFFFF	Main background
+Warm Off White	#F8F6EF	Testimonial / footer-transition sections
+Light Border	#E5E0D5	Cards, inputs, table borders
+Muted Text	#6F746D	Supporting copy
+Primary Text	#17382B	Headlines
+Typography Style
+
+The page uses a clean commercial sans-serif with bold headline weights.
+
+Recommended font pairing:
+
+Headings: Inter / Manrope / Montserrat
+Body: Inter / Manrope
+Luxury accent option: Cormorant Garamond only for subtle brand moments
+Text Hierarchy
+Element	Suggested Size
+Top ticker	11–12px
+Nav links	13–14px
+Hero headline	56–68px desktop
+Section headings	28–34px
+Card titles	15–18px
+Body copy	13–15px
+Button text	13–15px, semi-bold
+Form labels	12–13px
+4. Header Breakdown
+Top Market Ticker Bar
+
+The very top bar contains live market values:
+
+Live Gold Price
+Live Silver Price
+Market Open: Mon - Fri 9:30 AM - 5:30 PM
+UI Notes
+Height: approximately 26–32px
+Background: very dark green
+Text: gold and off-white
+Small circular icons before each metric
+Center-aligned content with equal spacing
+Functional Requirement
+
+This should be dynamic.
+
+Recommended backend/RPC data:
+
+type MarketTicker = {
+  goldPrice: number
+  silverPrice: number
+  marketStatus: "open" | "closed"
+  marketHoursLabel: string
+  updatedAt: string
+}
+Main Header
+
+The main header has:
+
+Logo left
+Search bar center
+My Account
+Cart
+Phone number
+Primary navigation row
+Layout
+┌──────────────────────────────────────────────────────────────┐
+│ Logo        Search bar                         Account Cart   │
+│                                                              │
+│ Buy Gold  Sell Gold  Sell Jewelry  Silver  Coins  Resources  │
+└──────────────────────────────────────────────────────────────┘
+Design Details
+Header background: deep green
+Logo: gold crown/crest + gold text
+Search input: white, rectangular, rounded corners
+Search icon button: dark green
+Cart button: outlined or dark green button with white/gold icon
+Phone number: gold icon + white text
+shadcn/ui Mapping
+Element	Component
+Search	Input + custom icon button
+Account	Button variant="ghost"
+Cart	Button variant="outline"
+Nav dropdowns	NavigationMenu
+Mobile nav	Sheet
+Product search	Command optional
+5. Hero Section Breakdown
+Visual Composition
+
+The hero is split visually:
+
+Left: gold scale image with bullion and jewelry
+Right: huge promotional headline
+Background: dark city / finance-style blurred image
+Hero Message
+SELL YOUR
+JEWELRY AND
+GET $100 OFF!*
+CTA
+Book an Appointment
+Trust Micro Badges
+
+Below CTA:
+
+Professional & Confidential
+100+ Branches Nationwide
+US flag icon
+Layout Details
+Item	Specification
+Section height	460–540px desktop
+Background	dark green overlay over city/financial image
+Hero object	gold scale placed left, sitting on marble block
+Main headline	right aligned or centered-right
+CTA color	metallic gold
+CTA text	white or dark green depending contrast
+Trust badges	inline row with icons
+Graphic Designer Notes
+
+The hero image is the main luxury anchor. It uses:
+
+Gold scale as a symbol of fair evaluation
+Bullion bars for wealth
+Jewelry bowl for selling jewelry
+Marble pedestal for luxury
+Dark financial background for trust and value
+
+The lighting should create strong contrast:
+
+gold reflective foreground + dark cinematic background
+Motion Plan
+Framer Motion
+
+Hero should animate in sequence:
+
+1. Header appears instantly or slides down subtly
+2. Gold scale fades in from left with slight upward movement
+3. Hero headline reveals line by line
+4. CTA fades up
+5. Trust badges stagger in
+
+Suggested animation:
+
+const heroContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.15,
+    },
+  },
+}
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+}
+GSAP Option
+
+Use GSAP for:
+
+Scale image parallax
+Headline split text reveal
+Background slow zoom
+Gold objects subtle floating highlight
+Hero scale image: y: 30 → 0, opacity 0 → 1
+Headline lines: stagger 0.12
+CTA: scale 0.96 → 1
+6. Trust Headline Section
+Section Content
+The best way to buy
+and sell gold.
+
+The words buy and sell are highlighted in gold.
+
+Supporting text explains:
+
+Get the highest, fair market value for your items with honest evaluations,
+secure transactions, and over 15 years of trusted service.
+Design Notes
+White background
+Centered content
+Decorative gold starbursts on both sides
+Below the text are trust pill badges
+Trust Badges
+Authorized Dealer
+BBB A+ Rated
+15+ Years of Experience
+Secure & Insured
+Component Mapping
+
+Use reusable TrustBadge component:
+
+type TrustBadgeProps = {
+  icon: LucideIcon
+  label: string
+}
+
+Recommended icons from lucide-react:
+
+ShieldCheck
+Star
+Clock
+LockKeyhole
+BadgeCheck
+7. Dark Trust Metric Strip
+
+This is a horizontal emerald strip with several quick credibility items.
+
+Items
+Worldwide Locations
+15+ Years Experience
+Best Price Guarantee
+250k+ Customers
+Secure & Insured
+5-Star Rated
+Design
+Deep green background
+Gold icons
+White text
+Thin gold separators between items
+Height: around 58–68px
+Responsive Behavior
+
+Desktop:
+
+All items in one horizontal row
+
+Tablet:
+
+3-column grid
+
+Mobile:
+
+Horizontal scroll badges or 2-column stacked layout
+8. Best-Selling Gold Products Section
+Section Purpose
+
+Introduce ecommerce buying functionality.
+
+Layout
+Heading centered
+4 product cards
+View All Products button
+Card Structure
+
+Each card contains:
+
+Product image
+Product name
+Purity / type
+Price
+View Product button
+
+Example products:
+
+1 Gram Gold Bar
+2.5 Gram Gold Bar
+5 Gram Gold Bar
+10 Gram Gold Bar
+Card Design
+Element	Style
+Card background	white
+Border	light warm gray
+Radius	10–14px
+Shadow	very subtle
+Product image	centered, clean white background
+Price	gold text
+Button	deep green
+shadcn/ui Mapping
+Card
+CardContent
+Button
+Badge optional
+Data Model
+type Product = {
+  id: string
+  name: string
+  metalType: "gold" | "silver" | "platinum"
+  weight: string
+  purity: string
+  price: number
+  currency: "USD"
+  imageUrl: string
+  slug: string
+  inStock: boolean
+}
+Acceptance Criteria
+Product cards must be driven by database/CMS data.
+Price must not be hardcoded.
+Product images must preserve aspect ratio.
+Button routes to product detail page.
+On mobile, cards become 2-column or horizontal scroll.
+9. Investment Calculator Section
+Visual Layout
+
+This section has:
+
+Gold coin image left
+Calculator form center
+Gold coin image right
+Inputs
+I am investing: In Gold
+For: 1 Year
+I plan to invest: $10,000
+In: USD
+
+CTA:
+
+Calculate My Returns
+UI Style
+Light gray/off-white background
+Centered form row
+Coin illustrations on both sides
+Inputs use clean bordered rectangles
+CTA uses deep green
+shadcn/ui Mapping
+Field	Component
+Metal type	Select
+Investment duration	Select
+Amount	Input
+Currency	Select
+Submit	Button
+Full-Stack Notes
+
+Critical investment calculations should be server-side.
+
+Recommended RPC:
+
+calculate_investment_return(
+  metal_type text,
+  amount numeric,
+  duration_months integer,
+  currency text
+)
+
+Return:
+
+type InvestmentReturnResult = {
+  initialAmount: number
+  projectedValue: number
+  estimatedReturn: number
+  percentageReturn: number
+  disclaimer: string
+}
+Important UX Note
+
+Add a small disclaimer:
+
+Projected values are estimates and do not guarantee future returns.
+10. Gold Insights Carousel
+Section Purpose
+
+Educate users and strengthen credibility.
+
+Layout
+Heading centered
+Horizontal row of article cards
+Pagination dots below
+Cards
+
+Examples shown:
+
+Gold vs. Inflation: A Timeless Hedge
+The Value of Physical Gold
+Market Trends & Analysis
+Gold Storage & Security
+Card Style
+Image background
+Dark gradient overlay
+White title
+Small gold CTA button
+Rounded corners
+Equal card heights
+Motion Behavior
+Desktop
+Cards appear with staggered fade-up.
+Hover lifts card slightly.
+Background image scales from 1 to 1.05.
+Mobile
+Horizontal swipe carousel.
+Pagination dots visible.
+Active dot emerald/gold.
+Recommended Libraries
+
+Use:
+
+embla-carousel-react
+or
+custom Framer Motion drag carousel
+
+Since your preferred stack includes motion libraries, a Framer Motion carousel is suitable.
+
+11. Silver Promotional Banner
+Section Content
+Buy Silver, Build Wealth
+Diversify your portfolio with silver.
+Competitive prices. Trusted service.
+Shop Silver Products
+Visual Direction
+Deep green background
+Large gold/silver coin image on left
+Text block centered/right
+CTA button in metallic gold
+Layout
+[large coin image] [headline + paragraph + CTA]
+Graphic Design Notes
+
+This banner works as a mid-page visual reset. It introduces silver without leaving the gold-focused brand identity.
+
+Use:
+
+dark green gradient
+subtle line texture
+large coin cutout overlapping section boundary
+Motion
+Coins slide in from left.
+Text fades in from right.
+Button gently highlights on hover.
+12. Location Finder + Appointment Booking
+
+This is one of the most important conversion sections.
+
+Two-Column Layout
+Left: Find a Location Near You
+Right: Book Your Appointment Today
+Left Card: Location Finder
+Content
+Find a Location Near You
+100+ branches across the U.S. Find a Prime Gold Trading location near you.
+Map illustration
+Find My Nearest Branch button
+UI Details
+White card
+Light border
+USA map with green location pins
+Dark green CTA button
+Functionality
+
+Required behavior:
+
+1. User clicks Find My Nearest Branch
+2. Browser requests location permission
+3. App finds nearest branch
+4. Branch list/map result is shown
+
+Data model:
+
+type Branch = {
+  id: string
+  name: string
+  address: string
+  city: string
+  state: string
+  country: string
+  latitude: number
+  longitude: number
+  phone: string
+  openingHours: string
+  services: string[]
+}
+Right Card: Appointment Form
+Fields
+Service Type
+First Name
+Last Name
+Email
+Phone Number
+Preferred Date
+Preferred Time
+
+CTA:
+
+Book Appointment
+shadcn/ui Mapping
+Field	Component
+Service Type	Select
+First Name	Input
+Last Name	Input
+Email	Input
+Phone	Input
+Preferred Date	Calendar + Popover
+Preferred Time	Select
+Submit	Button
+Validation
+
+Use:
+
+react-hook-form
+zod
+@hookform/resolvers
+
+Example schema:
+
+const appointmentSchema = z.object({
+  serviceType: z.string().min(1, "Select a service"),
+  firstName: z.string().min(2),
+  lastName: z.string().min(2),
+  email: z.string().email(),
+  phone: z.string().min(7),
+  preferredDate: z.date(),
+  preferredTime: z.string().min(1),
+})
+Backend Data
+type Appointment = {
+  id: string
+  serviceType: "sell_gold" | "sell_jewelry" | "buy_gold" | "buy_silver" | "coins"
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  preferredDate: string
+  preferredTime: string
+  status: "pending" | "confirmed" | "cancelled" | "completed"
+  createdAt: string
+}
+13. Comparison Table + Trust Rating
+Section Purpose
+
+This section directly compares the brand against competitors.
+
+Left: Comparison Table
+
+Columns:
+
+Feature
+Prime Gold Trading
+Other Dealers
+
+Rows:
+
+Best Price Guarantee
+Free & Transparent Appraisals
+Secure & Insured Transactions
+Nationwide Locations
+5-Star Customer Ratings
+
+Prime Gold column uses green checks.
+
+Other dealers column uses red crosses.
+
+Right: Review Card
+Trusted by Thousands
+★★★★★
+4.9/5
+Based on 50,000+ reviews
+See Our Reviews
+Design Notes
+Table uses thin borders
+Prime Gold column header is deep green
+Check icons are green
+Cross icons are red
+Rating card has subtle shadow and white background
+shadcn/ui Mapping
+Table
+Card
+Button
+Badge
+14. FAQ Section
+Layout
+
+Two-column accordion grid.
+
+Questions include:
+
+How does the sell process work?
+What types of gold do you buy?
+Do I need an appointment?
+How is my gold valued?
+What forms of payment do you offer?
+Is my transaction confidential?
+
+CTA:
+
+View All FAQs
+shadcn/ui Mapping
+
+Use:
+
+Accordion
+AccordionItem
+AccordionTrigger
+AccordionContent
+UX Notes
+Keep answers short.
+Use + icons on closed state.
+Expand one item at a time.
+On mobile, collapse into single column.
+15. Customer Testimonials
+Layout
+Section title
+5 testimonial cards in a row
+
+Each card contains:
+
+Star rating
+Quote
+Customer name
+Visual Style
+Warm off-white section background
+White cards
+Gold stars
+Small muted testimonial text
+Customer names bold
+Component
+type TestimonialCardProps = {
+  rating: number
+  quote: string
+  name: string
+}
+Motion
+Cards animate with staggered fade-up.
+Hover state: slight lift and stronger shadow.
+16. Press / Recognition Logos
+Content
+Globally Recognized. Industry Trusted.
+
+Logos shown:
+
+Inc.
+Forbes
+Yahoo Finance
+MarketWatch
+Business Insider
+Bloomberg
+Design Notes
+Logos are grayscale/muted
+Section is centered
+Use generous whitespace
+This builds authority without overwhelming the page
+Implementation
+
+Use a LogoCloud component.
+
+type PressLogo = {
+  id: string
+  name: string
+  logoUrl: string
+  href?: string
+}
+17. “We’ll Buy All Your Precious Items” Section
+Layout
+
+Centered heading with 4 service cards:
+
+We Buy Gold
+We Buy Silver
+We Buy Jewelry
+We Buy Coins
+
+Each card has:
+
+Icon/image
+Title
+Short description
+Visual Treatment
+First card is active/highlighted in deep green
+Other cards are white with light border
+Gold line icons
+Equal card sizing
+UX Purpose
+
+This section clarifies exactly what the business accepts.
+
+18. Promotional Sell Strip
+Content
+
+Left:
+
+We Buy Your
+Gold and Silver Jewelry
+Broken Jewelry
+Gold and Silver Coins
+Get Your Offer Now
+
+Right:
+
+Macro image of gold chains, coins, bars, jewelry
+Visual Direction
+Split banner
+Left side white/cream
+Right side luxury gold product photography
+CTA button deep green
+Checklist icons in green
+Motion
+Checklist items reveal one by one.
+Right image has subtle parallax on scroll.
+CTA has hover shine effect.
+19. Global Reach, Local Support Section
+Content Blocks
+
+Left feature list:
+
+Branches That Put You First
+Fast, Secure & Insured
+Regulated & Compliant
+Privacy You Can Trust
+
+Center/right:
+
+Large gold bar image
+
+Bottom copy:
+
+Invest in gold and silver with confidence and security.
+
+CTA:
+
+Learn More About Investing
+Design Notes
+
+This section uses a more editorial layout and reinforces compliance, safety, and privacy.
+
+20. Footer Breakdown
+Footer Content
+
+The footer contains:
+
+Logo
+Trust / transparency line
+Contact email
+Phone number
+Address / market hours
+Shop links
+Sell links
+Company links
+Resources links
+Newsletter signup
+Payment method logos
+Footer Layout
+
+Desktop:
+
+Logo/contact column
+Shop column
+Sell column
+Company column
+Resources column
+Newsletter column
+
+Mobile:
+
+Accordion footer groups
+Newsletter full width
+Payment logos below
+shadcn/ui Mapping
+Input
+Button
+Accordion for mobile footer sections
+Separator
+21. Full Component Architecture
+
+Recommended component breakdown:
+
+/components
+  /layout
+    TopMarketBar.tsx
+    SiteHeader.tsx
+    MainNavigation.tsx
+    MobileNavigation.tsx
+    Footer.tsx
+
+  /home
+    HeroSellJewelry.tsx
+    TrustIntro.tsx
+    TrustMetricStrip.tsx
+    BestSellingProducts.tsx
+    ProductCard.tsx
+    InvestmentCalculator.tsx
+    InsightsCarousel.tsx
+    SilverPromoBanner.tsx
+    LocationAppointmentSection.tsx
+    LocationFinderCard.tsx
+    AppointmentForm.tsx
+    ComparisonSection.tsx
+    FAQSection.tsx
+    TestimonialsSection.tsx
+    PressLogoCloud.tsx
+    PreciousItemsSection.tsx
+    SellItemsBanner.tsx
+    GlobalSupportSection.tsx
+
+  /shared
+    SectionHeading.tsx
+    TrustBadge.tsx
+    GoldButton.tsx
+    IconFeature.tsx
+    RatingStars.tsx
+22. Suggested shadcn/ui Components
+
+Install/use:
+
+button
+card
+input
+select
+form
+popover
+calendar
+accordion
+navigation-menu
+sheet
+table
+badge
+separator
+dropdown-menu
+command
+
+Recommended custom variants:
+
+buttonVariants({
+  variant: {
+    gold: "bg-[#D6A43B] text-white hover:bg-[#C9962E]",
+    emerald: "bg-[#003D2B] text-white hover:bg-[#002A1E]",
+    outlineGold: "border border-[#D6A43B] text-[#D6A43B]",
+  },
+})
+23. Framer Motion Animation System
+Global Animation Language
+
+The animation should feel premium and restrained, not playful.
+
+Use:
+
+Soft fade-ups
+Slow parallax
+Staggered badges
+Card hover lifts
+Subtle image scale
+Smooth scroll reveals
+Motion Tokens
+export const motionEase = [0.22, 1, 0.36, 1]
+
+export const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: motionEase,
+    },
+  },
+}
+
+export const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+}
+Recommended Effects by Section
+Section	Animation
+Hero	headline line reveal, gold scale slide-in
+Trust badges	staggered fade-up
+Product cards	fade-up with hover lift
+Calculator	form fade-in, coins subtle parallax
+Insights	horizontal carousel + hover zoom
+Silver banner	coin slide-in from left
+Forms	no excessive motion; keep stable
+Testimonials	staggered reveal
+Footer	simple fade-in
+24. GSAP Opportunities
+
+Use GSAP only where it adds polish beyond Framer Motion.
+
+Best GSAP use cases:
+
+Hero parallax
+Gold coin scroll movement
+Background slow zoom
+SplitText headline reveal
+ScrollTrigger section reveals
+Luxury CTA shine animation
+
+Example motion direction:
+
+As user scrolls:
+- Hero background moves slower than foreground
+- Gold scale shifts slightly upward
+- Coin illustrations move horizontally by 20–40px
+- Product banners reveal with scrubbed opacity
+
+Avoid over-animation. This site must feel like a trusted financial brand, not a gaming landing page.
+
+25. Full-Stack Developer Requirements
+Core Database Tables
+products
+product_categories
+metal_prices
+appointments
+branches
+testimonials
+faqs
+blog_posts
+press_logos
+newsletter_subscribers
+investment_calculations
+users
+orders
+cart_items
+Important Backend Logic
+
+Business-critical logic should be server-side:
+
+Live metal pricing
+Product price calculation
+Investment return calculation
+Appointment availability
+Branch lookup
+Cart totals
+Taxes / shipping
+Order confirmation
+Newsletter subscription
+Lead capture
+RPC-First Functions
+
+Recommended Supabase RPCs:
+
+get_live_market_prices()
+get_featured_products()
+calculate_product_price(product_id)
+calculate_investment_projection()
+get_nearest_branches(lat, lng)
+create_appointment()
+get_available_appointment_slots()
+subscribe_to_newsletter()
+get_homepage_content()
+API/Integration Requirements
+
+Possible integrations:
+
+Feature	Integration
+Live gold/silver prices	Metals pricing API
+Appointments	Internal DB or calendar integration
+Email confirmations	Resend
+Ecommerce checkout	Stripe
+Location lookup	Google Maps / Mapbox
+Reviews	Internal reviews or third-party import
+CMS content	Supabase tables or headless CMS
+26. Responsive Behavior
+Desktop
+Full-width header
+Two-row navigation
+Hero split layout
+4-column product grid
+5-card insight row
+2-column form/location section
+Multi-column footer
+Tablet
+Header compresses
+Product cards become 2-column
+Insights become carousel
+Location/form remains 2-column if width allows
+Footer becomes 3-column
+Mobile
+Top ticker becomes horizontal scroll
+Header becomes logo + search + menu
+Hero stacks vertically
+Hero headline reduces significantly
+Product cards become 1 or 2 columns
+Calculator inputs stack
+Insight cards become swipe carousel
+Location and appointment stack
+Comparison table becomes horizontally scrollable
+FAQ becomes single column
+Footer becomes accordion
+27. Pixel-Accurate Reproduction Checklist
+Header
+ Dark green top ticker with gold market text
+ Logo left, search center, account/cart right
+ Navigation row with dropdown indicators
+ Phone number highlighted on right
+Hero
+ Dark city/finance background
+ Gold scale and bullion image left
+ Large white/gold promotional headline right
+ Gold CTA button
+ Trust badges beneath CTA
+Content Sections
+ Centered trust headline with gold-highlighted words
+ Decorative gold starbursts
+ Dark green trust metric strip
+ Four product cards with prices
+ Calculator section with coin images left/right
+ Insights carousel with dark overlay cards
+ Silver banner with large coin artwork
+ Location finder and appointment form cards
+ Comparison table with green checks and red crosses
+ FAQ accordion grid
+ Testimonials on warm background
+ Press logo cloud
+ Precious items cards
+ Final sell banner with jewelry image
+ Dark green footer with newsletter and payment logos
+28. Recommended Build Stack
+
+For your preferred stack, this UI fits perfectly with:
+
+TanStack Start / React 19
+TypeScript
+Tailwind CSS v4
+shadcn/ui
+Framer Motion
+GSAP where needed
+Lucide React
+React Hook Form
+Zod
+TanStack Query
+Zustand
+Supabase RPC
+Stripe
+Resend
+Mapbox or Google Maps
+Suggested Architecture
+Frontend:
+React + Tailwind + shadcn/ui + Framer Motion
+
+Data:
+TanStack Query fetching RPC-backed data
+
+Forms:
+React Hook Form + Zod
+
+Backend:
+Supabase tables + RLS + RPC functions
+
+Payments:
+Stripe Checkout
+
+Emails:
+Resend transactional emails
+
+Maps:
+Mapbox / Google Maps
+
+Admin:
+Product, appointment, branch, FAQ, testimonial, blog, homepage content management
+29. Final UI Direction Summary
+
+This homepage should be rebuilt as a luxury trust-based conversion platform.
+
+The most important design principles are:
+
+Deep green = security and wealth
+Gold = value and premium positioning
+White space = trust and clarity
+Cards = structured ecommerce confidence
+Forms = lead generation
+Badges/reviews/logos = objection removal
+Motion = subtle luxury, not distraction
+
+The final result should feel like:
+
+A premium national gold trading company where users can confidently buy gold, sell jewelry, calculate investment potential, find a branch, and book an appointment in one seamless journey.

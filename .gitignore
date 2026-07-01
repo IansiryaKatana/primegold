@@ -1,0 +1,22 @@
+# Dependencies
+node_modules
+
+# Build
+.output
+dist
+.vinxi
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated
+src/routeTree.gen.ts
