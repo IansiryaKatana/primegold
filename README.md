@@ -58,6 +58,45 @@ src/
 - Fully responsive (mobile → desktop)
 - Framer Motion animations throughout
 
+## Deploy to Vercel
+
+This app uses [TanStack Start with Nitro](https://vercel.com/docs/frameworks/full-stack/tanstack-start) for Vercel deployment.
+
+### 1. Connect GitHub
+
+1. Go to [vercel.com/new](https://vercel.com/new)
+2. Import [IansiryaKatana/primegold](https://github.com/IansiryaKatana/primegold)
+3. Vercel should auto-detect **TanStack Start** (via `vercel.json` + Nitro plugin)
+4. Build command: `npm run build` (default)
+5. Deploy
+
+### 2. Environment variables
+
+Add these in **Project → Settings → Environment Variables** (copy from `.env.example`):
+
+| Variable | Notes |
+|----------|--------|
+| `VITE_SUPABASE_URL` | Client + server |
+| `VITE_SUPABASE_ANON_KEY` | Client |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server only |
+| `STRIPE_SECRET_KEY` | Server only |
+| `VITE_STRIPE_PUBLISHABLE_KEY` | Client |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook route |
+| `RESEND_API_KEY` | Email |
+| `RESEND_FROM` | Sender address |
+| `VITE_APP_URL` | Your Vercel URL, e.g. `https://primegold.vercel.app` |
+| `METALS_API_KEY` | Live spot prices (optional) |
+
+Redeploy after adding env vars.
+
+### 3. CLI (optional)
+
+```bash
+npx vercel login
+npx vercel link
+npx vercel --prod
+```
+
 ## Brand Colors
 
 | Token | Value | Usage |
