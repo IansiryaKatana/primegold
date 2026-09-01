@@ -14,7 +14,7 @@ import { faqCopy, insightArticles, emailCopy } from '@/data/copy'
 import { sendEmail } from '@/lib/email'
 import { testimonials, pressLogos, comparisonRows } from '@/data/content'
 import { getSupabaseServiceClient, isSupabaseServerConfigured } from '@/lib/supabase/server'
-import { generateOrderNumber, memoryStore } from '@/lib/db/memory-store'
+import { generateOrderNumber, memoryStore, toOrderSummary, type MemoryOrder } from '@/lib/db/memory-store'
 import { buildMarketTicker } from '@/lib/metals/market'
 import { getSpotPrices, pricePerGram, priceProducts } from '@/lib/metals/spot'
 
@@ -324,7 +324,7 @@ export const createCheckoutSession = createServerFn({ method: 'POST' })
     const total = subtotal + shipping
     const orderNumber = generateOrderNumber()
 
-    const order = {
+    const order: MemoryOrder = {
       id: crypto.randomUUID(),
       orderNumber,
       email: data.email,
@@ -390,7 +390,7 @@ export const lookupOrder = createServerFn({ method: 'POST' })
     const order = memoryStore.orders.find(
       (o) => o.orderNumber === data.orderNumber && o.email === data.email,
     )
-    return order ?? null
+    return order ? toOrderSummary(order) : null
   })
 
 type KycInput = {
@@ -435,7 +435,7 @@ export const createKycCase = createServerFn({ method: 'POST' })
         await supabase.from('kyc_documents').insert({
           kyc_case_id: inserted.id,
           doc_type: data.docType,
-          storage_path: path,
+          file_path: path,
         })
       }
     }
@@ -457,5 +457,7 @@ export const markOrderPaid = createServerFn({ method: 'POST' })
 export const getOrdersForEmail = createServerFn({ method: 'POST' })
   .validator((email: string) => email)
   .handler(async ({ data: email }) =>
-    memoryStore.orders.filter((o) => o.email === email),
+    memoryStore.orders
+      .filter((o) => o.email === email)
+      .map(toOrderSummary),
   )

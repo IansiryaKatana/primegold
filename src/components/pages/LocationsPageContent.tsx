@@ -5,6 +5,7 @@ import { MapPin } from 'lucide-react'
 import { getBranches } from '@/server/functions'
 import { locationsCopy } from '@/data/copy'
 import { locationLink, links } from '@/lib/links'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/shared/primitives'
 import { PageHero } from '@/components/pages/PageHero'
@@ -34,10 +35,12 @@ export function LocationsPageContent() {
         </Button>
       </PageHero>
 
-      <section className="bg-white py-16 md:py-20">
+      <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container>
-          <BranchMap className="mb-10 min-h-[360px]" />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealBlock className="mb-10">
+            <BranchMap className="min-h-[360px]" />
+          </RevealBlock>
+          <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
             {branches.map((branch) => (
               <a
                 key={branch.id}
@@ -58,9 +61,9 @@ export function LocationsPageContent() {
                 </div>
               </a>
             ))}
-          </div>
+          </StaggerGrid>
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }

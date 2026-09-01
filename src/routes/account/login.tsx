@@ -2,6 +2,7 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -38,9 +39,11 @@ function LoginPage() {
   }
 
   return (
-    <section className="bg-cream py-16">
+    <MotionSection tier="d" className="bg-cream py-16">
       <Container className="max-w-md">
-        <h1 className="text-heading text-primary-text">Sign In</h1>
+        <RevealBlock scroll={false}>
+          <h1 className="text-heading text-primary-text">Sign In</h1>
+        </RevealBlock>
         <form onSubmit={handleLogin} className="mt-8 flex flex-col gap-4 rounded-sm border border-warm-border bg-white p-6">
           <div><Label htmlFor="email">Email</Label><Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
           <div><Label htmlFor="password">Password</Label><Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} /></div>
@@ -50,6 +53,6 @@ function LoginPage() {
           No account? <a href={links.register} className="text-emerald-deep hover:underline">Register</a>
         </p>
       </Container>
-    </section>
+    </MotionSection>
   )
 }

@@ -1,8 +1,11 @@
+'use client'
+
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getBranch } from '@/server/functions'
 import { locationsCopy } from '@/data/copy'
 import { links } from '@/lib/links'
+import { MotionSection, StaggerGrid } from '@/components/motion'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/shared/primitives'
 import { PageHero } from '@/components/pages/PageHero'
@@ -53,9 +56,9 @@ function BranchDetailPage() {
           <a href={`tel:${branch.phone.replace(/\D/g, '')}`}>{locationsCopy.callBranch}</a>
         </Button>
       </PageHero>
-      <section className="bg-white py-16 md:py-20">
+      <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container>
-          <div className="grid gap-8 md:grid-cols-2">
+          <StaggerGrid className="grid gap-8 md:grid-cols-2" stagger={0.12}>
             <div className="flex flex-col gap-4 rounded-sm border border-warm-border p-6">
               <h2 className="text-xl text-primary-text">Branch Details</h2>
               <p className="flex items-start gap-3 text-desc">
@@ -97,9 +100,9 @@ function BranchDetailPage() {
                 </a>
               </Button>
             </div>
-          </div>
+          </StaggerGrid>
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }

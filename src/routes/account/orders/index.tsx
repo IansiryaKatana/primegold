@@ -2,9 +2,11 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { getOrdersForEmail } from '@/server/functions'
+import type { OrderSummary } from '@/lib/db/memory-store'
 import { getSupabaseBrowserClient, isSupabaseConfigured } from '@/lib/supabase/client'
 import { formatCurrency } from '@/lib/utils'
 import { links } from '@/lib/links'
@@ -16,7 +18,7 @@ export const Route = createFileRoute('/account/orders/')({
 
 function OrdersPage() {
   const [email, setEmail] = useState('')
-  const [orders, setOrders] = useState<Array<Record<string, unknown>>>([])
+  const [orders, setOrders] = useState<OrderSummary[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -33,7 +35,7 @@ function OrdersPage() {
       setEmail(userEmail)
       if (userEmail) {
         const result = await getOrdersForEmail({ data: userEmail })
-        setOrders(result as Array<Record<string, unknown>>)
+        setOrders(result)
       }
       setLoading(false)
     }
@@ -43,9 +45,11 @@ function OrdersPage() {
   return (
     <>
       <title>{metaCopy.account.title} — Orders</title>
-      <section className="bg-cream py-16">
+      <MotionSection tier="d" className="bg-cream py-16">
         <Container>
-          <h1 className="text-heading text-primary-text">Order History</h1>
+          <RevealBlock scroll={false}>
+            <h1 className="text-heading text-primary-text">Order History</h1>
+          </RevealBlock>
           {loading ? (
             <p className="mt-6 text-muted-text">Loading orders…</p>
           ) : !email ? (
@@ -58,27 +62,27 @@ function OrdersPage() {
           ) : orders.length === 0 ? (
             <p className="mt-6 text-muted-text">No orders found for {email}.</p>
           ) : (
-            <div className="mt-8 flex flex-col gap-4">
+            <StaggerGrid className="mt-8 flex flex-col gap-4" stagger={0.06}>
               {orders.map((order) => (
                 <a
-                  key={String(order.orderNumber)}
+                  key={order.orderNumber}
                   href={`${links.accountOrders}/${order.orderNumber}`}
                   className="rounded-sm border border-warm-border bg-white p-4 hover:shadow-md"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-primary-text">{String(order.orderNumber)}</span>
-                    <span className="text-gold">{formatCurrency(Number(order.total))}</span>
-                    <span className="text-sm capitalize text-muted-text">{String(order.status)}</span>
+                    <span className="text-primary-text">{order.orderNumber}</span>
+                    <span className="text-gold">{formatCurrency(order.total)}</span>
+                    <span className="text-sm capitalize text-muted-text">{order.status}</span>
                   </div>
                 </a>
               ))}
-            </div>
+            </StaggerGrid>
           )}
           <Button variant="outlineGold" className="mt-8" asChild>
             <a href={links.account}>Back to Account</a>
           </Button>
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }

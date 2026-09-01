@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { toast } from 'sonner'
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -85,7 +86,7 @@ export function CheckoutPage() {
     return (
       <>
         <title>{metaCopy.checkout.title}</title>
-        <section className="bg-cream py-16">
+        <MotionSection tier="d" className="bg-cream py-16">
           <Container className="max-w-lg text-center">
             <h1 className="text-heading text-primary-text">Checkout</h1>
             <p className="mt-4 text-muted-text">Your cart is empty. Add products before checking out.</p>
@@ -93,7 +94,7 @@ export function CheckoutPage() {
               <a href={links.shop}>Browse Products</a>
             </Button>
           </Container>
-        </section>
+        </MotionSection>
       </>
     )
   }
@@ -102,8 +103,9 @@ export function CheckoutPage() {
     <>
       <title>{metaCopy.checkout.title}</title>
       <meta name="description" content={metaCopy.checkout.description} />
-      <section className="bg-cream py-10 md:py-14">
+      <MotionSection tier="d" className="bg-cream py-10 md:py-14">
         <Container>
+          <RevealBlock scroll={false}>
           <Button variant="ghost" className="mb-6 -ml-2 text-emerald-deep" asChild>
             <a href={links.cart}>
               <ChevronLeft className="size-4" />
@@ -115,6 +117,7 @@ export function CheckoutPage() {
           <p className="mt-1 text-sm text-muted-text">
             Secure payment · Identity verification required before shipment
           </p>
+          </RevealBlock>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-3">
             <div className="flex flex-col gap-6 lg:col-span-2">
@@ -192,7 +195,7 @@ export function CheckoutPage() {
             </div>
           </div>
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }

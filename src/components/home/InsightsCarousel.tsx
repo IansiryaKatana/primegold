@@ -1,10 +1,13 @@
-import { useCallback, useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+'use client'
+
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
-import { fadeUp } from '@/lib/motion'
 import { insightLink } from '@/lib/links'
 import { homeCopy } from '@/data/copy'
 import type { InsightArticle } from '@/lib/types'
+import { MotionSection } from '@/components/motion'
+import { useGSAP, scrollReveal } from '@/lib/gsap'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { Button } from '@/components/ui/button'
 import { Container, SectionHeading } from '@/components/shared/primitives'
 import { cn } from '@/lib/utils'
@@ -14,6 +17,8 @@ type InsightsCarouselProps = {
 }
 
 export function InsightsCarousel({ articles }: InsightsCarouselProps) {
+  const slidesRef = useRef<HTMLDivElement>(null)
+  const reduced = useReducedMotion()
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
     loop: false,
@@ -35,22 +40,29 @@ export function InsightsCarousel({ articles }: InsightsCarouselProps) {
     }
   }, [emblaApi, onSelect])
 
+  useGSAP(
+    () => {
+      if (!slidesRef.current || reduced) return
+      const slides = slidesRef.current.querySelectorAll('.insight-slide')
+      scrollReveal(slides, {
+        stagger: 0.08,
+        scrollTrigger: { trigger: slidesRef.current, once: true },
+      })
+    },
+    { scope: slidesRef, dependencies: [articles, reduced] },
+  )
+
   return (
-    <section id="insights" className="bg-white py-16 md:py-20">
+    <MotionSection id="insights" tier="b" className="bg-white py-16 md:py-20">
       <Container>
         <SectionHeading title={homeCopy.insights.title} />
 
         <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-4">
-            {articles.map((article, i) => (
-              <motion.div
+          <div className="flex gap-4" ref={slidesRef}>
+            {articles.map((article) => (
+              <div
                 key={article.id}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                transition={{ delay: i * 0.08 }}
-                className="min-w-0 flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_22%]"
+                className="insight-slide min-w-0 flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_22%]"
               >
                 <div className="group relative aspect-[3/4] w-full overflow-hidden rounded-sm">
                   <img
@@ -68,7 +80,7 @@ export function InsightsCarousel({ articles }: InsightsCarouselProps) {
                     </Button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -88,6 +100,6 @@ export function InsightsCarousel({ articles }: InsightsCarouselProps) {
           ))}
         </div>
       </Container>
-    </section>
+    </MotionSection>
   )
 }

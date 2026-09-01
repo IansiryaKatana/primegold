@@ -1,7 +1,10 @@
+'use client'
+
 import { useQuery } from '@tanstack/react-query'
 import { getCollection } from '@/server/functions'
 import { Container, SectionHeading } from '@/components/shared/primitives'
 import { ProductCard } from '@/components/home/ProductCard'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { collectionCopy, shopCopy } from '@/data/copy'
 import {
   Breadcrumb,
@@ -12,8 +15,6 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { links } from '@/lib/links'
-import { motion } from 'framer-motion'
-import { fadeUp, staggerContainer } from '@/lib/motion'
 
 type CollectionPageProps = { slug: string }
 
@@ -29,37 +30,34 @@ export function CollectionPage({ slug }: CollectionPageProps) {
   if (!collection) return <Container className="py-16"><p>Collection not found.</p></Container>
 
   return (
-    <section className="bg-white py-12 md:py-16">
+    <MotionSection tier="c" className="bg-white py-12 md:py-16">
       <Container>
-        <Breadcrumb className="mb-6">
-          <BreadcrumbList>
-            <BreadcrumbItem><BreadcrumbLink href={links.home}>Home</BreadcrumbLink></BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem><BreadcrumbLink href={links.shop}>Shop</BreadcrumbLink></BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem><BreadcrumbPage>{collection.title}</BreadcrumbPage></BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <RevealBlock scroll={false} className="mb-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem><BreadcrumbLink href={links.home}>Home</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem><BreadcrumbLink href={links.shop}>Shop</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem><BreadcrumbPage>{collection.title}</BreadcrumbPage></BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </RevealBlock>
         <SectionHeading
           title={meta?.title ?? collection.title}
           subtitle={meta?.description ?? collection.description}
         />
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-        >
+        <StaggerGrid className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
           {collection.products.map((product) => (
-            <motion.div key={product.id} variants={fadeUp}>
+            <div key={product.id}>
               <ProductCard product={product} />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </StaggerGrid>
         {collection.products.length === 0 && (
           <p className="text-muted-text">{shopCopy.empty}</p>
         )}
       </Container>
-    </section>
+    </MotionSection>
   )
 }

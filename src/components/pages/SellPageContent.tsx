@@ -1,5 +1,8 @@
+'use client'
+
 import { sellCopy } from '@/data/copy'
 import { links } from '@/lib/links'
+import { MotionSection, RevealText, StaggerGrid } from '@/components/motion'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/shared/primitives'
 import { PageHero } from '@/components/pages/PageHero'
@@ -28,12 +31,12 @@ export function SellPageContent() {
         </Button>
       </PageHero>
 
-      <section className="bg-white py-16 md:py-20">
+      <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container>
-          <h2 className="text-center text-2xl text-primary-text md:text-3xl">
+          <RevealText as="h2" className="text-center text-2xl text-primary-text md:text-3xl">
             {sellCopy.process.title}
-          </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          </RevealText>
+          <StaggerGrid className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" stagger={0.1}>
             {sellCopy.process.steps.map((step, i) => (
               <div
                 key={step.title}
@@ -44,11 +47,11 @@ export function SellPageContent() {
                 <p className="mt-2 text-sm text-muted-text md:text-base">{step.description}</p>
               </div>
             ))}
-          </div>
+          </StaggerGrid>
         </Container>
-      </section>
+      </MotionSection>
 
-      <section className="bg-cream py-16 md:py-20">
+      <MotionSection tier="d" className="bg-cream py-16 md:py-20">
         <Container>
           <Tabs defaultValue="accepted" className="w-full">
             <TabsList className="mx-auto max-w-md">
@@ -84,7 +87,7 @@ export function SellPageContent() {
           </Tabs>
           <p className="mt-8 text-center text-sm text-muted-text">{sellCopy.disclaimer}</p>
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }

@@ -123,9 +123,9 @@ function NewsletterForm() {
 
 function BrandColumn() {
   return (
-    <FooterColumn className="w-full">
+    <FooterColumn className="min-w-0 overflow-hidden">
       <a href={links.home} className="flex w-full items-center">
-        <BrandLogo className="h-11 max-w-[280px] md:h-12" />
+        <BrandLogo className="h-11 w-auto max-w-full md:h-12" />
       </a>
       <p className="w-full text-sm font-extralight leading-relaxed text-white/70">
         {brand.blurb}
@@ -170,7 +170,7 @@ function FooterMainGrid({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-6 lg:gap-x-8 lg:gap-y-0 xl:gap-x-12',
+        'grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[minmax(16rem,1.4fr)_repeat(5,minmax(0,1fr))] lg:items-start lg:gap-x-10 lg:gap-y-0 xl:gap-x-12',
         className,
       )}
     >

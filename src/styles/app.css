@@ -73,6 +73,11 @@
   }
 }
 
+:root {
+  /* TopMarketBar (~2.25rem) + SiteHeader (~4.75rem) — keeps hero + chrome = 100svh on desktop */
+  --site-chrome-height: 7rem;
+}
+
 @layer utilities {
   .text-desc {
     @apply text-base font-extralight leading-relaxed text-muted-text md:text-lg;

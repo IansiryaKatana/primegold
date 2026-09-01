@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -23,6 +25,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { homeCopy } from '@/data/copy'
+import { MotionSection, StaggerGrid } from '@/components/motion'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Container, SectionHeading } from '@/components/shared/primitives'
 import { cn } from '@/lib/utils'
@@ -37,7 +40,6 @@ const appointmentSchema = z.object({
   phone: z.string().min(7, 'Phone required'),
   preferredDate: z.date({ required_error: 'Date required' }),
   preferredTime: z.string().min(1, 'Time required'),
-  mode: z.enum(['in_branch', 'at_home']).default('in_branch'),
   address: z.string().optional(),
 })
 
@@ -336,14 +338,14 @@ function AppointmentForm() {
 export function LocationAppointmentSection() {
   const copy = homeCopy.locations
   return (
-    <section id="locations" className="bg-cream py-16 md:py-20">
+    <MotionSection id="locations" tier="b" className="bg-cream py-16 md:py-20">
       <Container>
         <SectionHeading title={copy.title} subtitle={copy.subtitle} />
-        <div className="grid items-stretch gap-8 md:grid-cols-2">
+        <StaggerGrid className="grid items-stretch gap-8 md:grid-cols-2" stagger={0.12}>
           <LocationFinderCard />
           <AppointmentForm />
-        </div>
+        </StaggerGrid>
       </Container>
-    </section>
+    </MotionSection>
   )
 }

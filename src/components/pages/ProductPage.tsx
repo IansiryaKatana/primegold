@@ -9,6 +9,7 @@ import { links } from '@/lib/links'
 import { shopCopy, productsCopy } from '@/data/copy'
 import { metaCopy } from '@/data/copy/meta'
 import { JsonLd, productJsonLd } from '@/lib/seo'
+import { MotionSection, RevealBlock, RevealText, StaggerGrid } from '@/components/motion'
 import { resolveUnitPrice } from '@/lib/cart'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -85,6 +86,7 @@ export function ProductPage({ slug }: ProductPageProps) {
   }
 
   function handleBuyNow() {
+    if (!product) return
     addItem(product, { qty, bulkTiers: product.bulkTiers, openDrawer: false })
     window.location.href = links.checkout
   }
@@ -94,8 +96,10 @@ export function ProductPage({ slug }: ProductPageProps) {
       <title>{product.name} | Prime Gold Trading</title>
       <meta name="description" content={product.description ?? metaCopy.shop.description} />
       <JsonLd data={productJsonLd({ ...product, description: product.description })} />
-      <Container className="py-10 md:py-16">
-        <Breadcrumb className="mb-8">
+      <MotionSection tier="c" className="py-10 md:py-16">
+      <Container>
+        <RevealBlock scroll={false} className="mb-8">
+        <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href={links.home}>Home</BreadcrumbLink>
@@ -110,8 +114,9 @@ export function ProductPage({ slug }: ProductPageProps) {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+        </RevealBlock>
 
-        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+        <StaggerGrid className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16" stagger={0.12}>
           <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm bg-image-surface">
             <img
               src={product.imageUrl}
@@ -229,19 +234,22 @@ export function ProductPage({ slug }: ProductPageProps) {
               })}
             </div>
           </div>
-        </div>
+        </StaggerGrid>
 
         {product.related && product.related.length > 0 && (
           <div className="mt-16 border-t border-warm-border pt-16">
-            <h2 className="text-2xl text-primary-text md:text-3xl">{shopCopy.related}</h2>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <RevealText as="h2" className="text-2xl text-primary-text md:text-3xl">
+              {shopCopy.related}
+            </RevealText>
+            <StaggerGrid className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
               {product.related.map((related) => (
                 <ProductCard key={related.id} product={related} />
               ))}
-            </div>
+            </StaggerGrid>
           </div>
         )}
       </Container>
+      </MotionSection>
     </>
   )
 }

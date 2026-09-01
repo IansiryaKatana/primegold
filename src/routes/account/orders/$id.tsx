@@ -2,9 +2,11 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { lookupOrder } from '@/server/functions'
+import type { OrderSummary } from '@/lib/db/memory-store'
 import { formatCurrency } from '@/lib/utils'
 import { links } from '@/lib/links'
 
@@ -14,7 +16,7 @@ export const Route = createFileRoute('/account/orders/$id')({
 
 function OrderDetailPage() {
   const { id: orderId } = Route.useParams()
-  const [order, setOrder] = useState<Record<string, unknown> | null>(null)
+  const [order, setOrder] = useState<OrderSummary | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -22,7 +24,7 @@ function OrderDetailPage() {
       const email = localStorage.getItem('pgt_demo_email') ?? ''
       if (email) {
         const result = await lookupOrder({ data: { orderNumber: orderId, email } })
-        setOrder(result as Record<string, unknown> | null)
+        setOrder(result)
       }
       setLoading(false)
     }
@@ -50,15 +52,15 @@ function OrderDetailPage() {
     )
   }
 
-  const lines = (order.lines as Array<{ name: string; qty: number; price: number }>) ?? []
-
   return (
-    <section className="bg-cream py-16">
+    <MotionSection tier="d" className="bg-cream py-16">
       <Container className="max-w-2xl">
-        <h1 className="text-heading text-primary-text">Order {String(order.orderNumber)}</h1>
-        <p className="mt-2 text-sm text-muted-text">Status: {String(order.status)}</p>
+        <RevealBlock scroll={false}>
+          <h1 className="text-heading text-primary-text">Order {order.orderNumber}</h1>
+          <p className="mt-2 text-sm text-muted-text">Status: {order.status}</p>
+        </RevealBlock>
         <ul className="mt-6 space-y-3 rounded-sm border border-warm-border bg-white p-6">
-          {lines.map((line) => (
+          {order.lines.map((line) => (
             <li key={line.name} className="flex justify-between text-sm">
               <span>{line.name} × {line.qty}</span>
               <span>{formatCurrency(line.price * line.qty)}</span>
@@ -67,12 +69,12 @@ function OrderDetailPage() {
         </ul>
         <div className="mt-4 flex justify-between text-base">
           <span>Total</span>
-          <span className="text-gold">{formatCurrency(Number(order.total))}</span>
+          <span className="text-gold">{formatCurrency(order.total)}</span>
         </div>
         <Button variant="outlineGold" className="mt-8" asChild>
           <a href={links.accountOrders}>Back to Orders</a>
         </Button>
       </Container>
-    </section>
+    </MotionSection>
   )
 }

@@ -1,3 +1,7 @@
+'use client'
+
+import { MotionSection } from '@/components/motion'
+
 type LegalSection = { heading: string; body: string }
 
 type LegalPageProps = {
@@ -9,7 +13,7 @@ type LegalPageProps = {
 
 export function LegalPage({ title, lastUpdated, intro, sections }: LegalPageProps) {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <MotionSection tier="d" className="bg-white py-16 md:py-20">
       <div className="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8">
         <h1 className="text-heading text-primary-text">{title}</h1>
         {lastUpdated && <p className="mt-2 text-sm text-muted-text">Last updated: {lastUpdated}</p>}
@@ -23,6 +27,6 @@ export function LegalPage({ title, lastUpdated, intro, sections }: LegalPageProp
           ))}
         </div>
       </div>
-    </section>
+    </MotionSection>
   )
 }

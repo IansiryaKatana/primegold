@@ -1,4 +1,7 @@
+'use client'
+
 import { createFileRoute } from '@tanstack/react-router'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { links } from '@/lib/links'
@@ -12,10 +15,12 @@ function AccountPage() {
   return (
     <>
       <title>{metaCopy.account.title}</title>
-      <section className="bg-cream py-16">
+      <MotionSection tier="d" className="bg-cream py-16">
         <Container className="max-w-2xl">
-          <h1 className="text-heading text-primary-text">My Account</h1>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <RevealBlock scroll={false}>
+            <h1 className="text-heading text-primary-text">My Account</h1>
+          </RevealBlock>
+          <StaggerGrid className="mt-8 grid gap-4 sm:grid-cols-2" stagger={0.08}>
             <a href={links.accountOrders} className="rounded-sm border border-warm-border bg-white p-6 hover:shadow-md">
               <h2 className="text-lg text-primary-text">Order History</h2>
               <p className="mt-1 text-sm text-muted-text">View past orders and track shipments.</p>
@@ -28,12 +33,14 @@ function AccountPage() {
               <h2 className="text-lg text-primary-text">Order Lookup</h2>
               <p className="mt-1 text-sm text-muted-text">Find an order by number and email.</p>
             </a>
-          </div>
-          <Button variant="outlineGold" className="mt-8" asChild>
-            <a href={links.login}>Sign In</a>
-          </Button>
+          </StaggerGrid>
+          <RevealBlock scroll={false} delay={0.2} className="mt-8">
+            <Button variant="outlineGold" asChild>
+              <a href={links.login}>Sign In</a>
+            </Button>
+          </RevealBlock>
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }

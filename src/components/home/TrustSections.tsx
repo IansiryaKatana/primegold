@@ -1,4 +1,6 @@
-import { motion } from 'framer-motion'
+'use client'
+
+import { useRef } from 'react'
 import {
   BadgeCheck,
   Clock,
@@ -7,8 +9,10 @@ import {
   Star,
   type LucideIcon,
 } from 'lucide-react'
-import { fadeUp, staggerContainer } from '@/lib/motion'
 import { homeCopy } from '@/data/copy'
+import { MotionSection, RevealBlock, RevealText, StaggerGrid } from '@/components/motion'
+import { useGSAP, scrollReveal } from '@/lib/gsap'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { TrustBadge, Container } from '@/components/shared/primitives'
 import { cn } from '@/lib/utils'
 
@@ -21,36 +25,32 @@ export function TrustIntro() {
     label,
   }))
   return (
-    <section className="bg-white py-16 md:py-20">
+    <MotionSection tier="b" className="bg-white py-16 md:py-20">
       <Container>
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          className="flex flex-col items-center text-center"
-        >
-          <motion.h2 variants={fadeUp} className="mb-6 text-heading text-primary-text">
-            The best way to{' '}
-            <span className="text-gold">buy</span> and{' '}
-            <span className="text-gold">sell</span> gold.
-          </motion.h2>
+        <div className="flex flex-col items-center text-center">
+          <RevealBlock className="mb-6">
+            <h2 className="text-heading text-primary-text">
+              The best way to{' '}
+              <span className="text-gold">buy</span> and{' '}
+              <span className="text-gold">sell</span> gold.
+            </h2>
+          </RevealBlock>
 
-          <motion.p variants={fadeUp} className="mb-10 max-w-2xl text-desc">
-            {copy.body}
-          </motion.p>
+          <RevealBlock className="mb-10 max-w-2xl">
+            <p className="text-desc">{copy.body}</p>
+          </RevealBlock>
 
-          <motion.div
-            variants={fadeUp}
+          <StaggerGrid
             className="grid w-full max-w-3xl grid-cols-2 gap-6 sm:grid-cols-4"
+            stagger={0.08}
           >
             {badges.map((badge) => (
               <TrustBadge key={badge.label} {...badge} />
             ))}
-          </motion.div>
-        </motion.div>
+          </StaggerGrid>
+        </div>
       </Container>
-    </section>
+    </MotionSection>
   )
 }
 
@@ -83,12 +83,25 @@ function MetricItem({
 }
 
 export function TrustMetricStrip() {
+  const gridRef = useRef<HTMLDivElement>(null)
+  const reduced = useReducedMotion()
   const metrics: Metric[] = homeCopy.trustMetrics.map((label, i) => ({
     icon: metricIcons[i] ?? BadgeCheck,
     label,
   }))
 
   const marqueeMetrics = [...metrics, ...metrics]
+
+  useGSAP(
+    () => {
+      if (!gridRef.current || reduced) return
+      scrollReveal(gridRef.current.children, {
+        stagger: 0.06,
+        scrollTrigger: { trigger: gridRef.current, once: true },
+      })
+    },
+    { scope: gridRef, dependencies: [reduced] },
+  )
 
   return (
     <section className="bg-emerald-deep py-4" aria-label="Trust highlights">
@@ -104,18 +117,21 @@ export function TrustMetricStrip() {
         </div>
       </div>
 
-      <div className="hidden w-full grid-cols-3 items-center px-4 lg:grid xl:grid-cols-6 xl:px-16">
-          {metrics.map((metric, i) => (
-            <div
-              key={metric.label}
-              className={cn(
-                'flex items-center justify-center px-1',
-                i < metrics.length - 1 && 'xl:border-r xl:border-gold/30',
-              )}
-            >
-              <MetricItem metric={metric} className="px-2 [&_span]:text-xs xl:[&_span]:text-sm" />
-            </div>
-          ))}
+      <div
+        ref={gridRef}
+        className="hidden w-full grid-cols-3 items-center px-4 lg:grid xl:grid-cols-6 xl:px-16"
+      >
+        {metrics.map((metric, i) => (
+          <div
+            key={metric.label}
+            className={cn(
+              'flex items-center justify-center px-1',
+              i < metrics.length - 1 && 'xl:border-r xl:border-gold/30',
+            )}
+          >
+            <MetricItem metric={metric} className="px-2 [&_span]:text-xs xl:[&_span]:text-sm" />
+          </div>
+        ))}
       </div>
     </section>
   )

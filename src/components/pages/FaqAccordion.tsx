@@ -8,7 +8,7 @@ import {
 import { cn } from '@/lib/utils'
 
 type FaqAccordionProps = {
-  faqs: FAQ[]
+  faqs: readonly FAQ[]
   className?: string
   columns?: 1 | 2
 }
@@ -29,7 +29,7 @@ export function FaqAccordion({ faqs, className, columns = 1 }: FaqAccordionProps
   return (
     <Accordion type="single" collapsible className={className}>
       {faqs.map((faq) => (
-        <AccordionItem key={faq.id} value={faq.id}>
+        <AccordionItem key={faq.id} value={faq.id} className="faq-accordion-item">
           <AccordionTrigger className="text-left text-primary-text">
             {faq.question}
           </AccordionTrigger>

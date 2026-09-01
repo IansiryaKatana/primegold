@@ -1,6 +1,7 @@
 'use client'
 
 import { createFileRoute } from '@tanstack/react-router'
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { links } from '@/lib/links'
@@ -23,25 +24,27 @@ function CheckoutSuccessPage() {
   }, [clear])
 
   return (
-    <section className="bg-cream py-16">
+    <MotionSection tier="d" className="bg-cream py-16">
       <Container className="max-w-lg text-center">
-        <h1 className="text-heading text-primary-text">Order Confirmed</h1>
-        <p className="mt-4 text-muted-text">
-          Thank you for your purchase. Your order number is{' '}
-          <strong className="text-primary-text">{order}</strong>.
-        </p>
-        <p className="mt-2 text-sm text-muted-text">
-          Identity verification is required before shipment. You will receive an email with next steps.
-        </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+        <RevealBlock scroll={false}>
+          <h1 className="text-heading text-primary-text">Order Confirmed</h1>
+          <p className="mt-4 text-muted-text">
+            Thank you for your purchase. Your order number is{' '}
+            <strong className="text-primary-text">{order}</strong>.
+          </p>
+          <p className="mt-2 text-sm text-muted-text">
+            Identity verification is required before shipment. You will receive an email with next steps.
+          </p>
+        </RevealBlock>
+        <RevealBlock scroll={false} delay={0.2} className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Button variant="emerald" asChild>
             <a href={`${links.checkoutKyc}?order=${encodeURIComponent(order)}`}>Complete Identity Verification</a>
           </Button>
           <Button variant="outlineGold" asChild>
             <a href={links.shop}>Continue Shopping</a>
           </Button>
-        </div>
+        </RevealBlock>
       </Container>
-    </section>
+    </MotionSection>
   )
 }

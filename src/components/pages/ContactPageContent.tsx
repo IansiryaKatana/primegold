@@ -19,12 +19,20 @@ import {
 import { Container } from '@/components/shared/primitives'
 import { PageHero } from '@/components/pages/PageHero'
 import { LocationAppointmentSection } from '@/components/home/LocationAppointmentSection'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { submitContactMessage } from '@/server/functions'
 import { metaCopy } from '@/data/copy/meta'
 
+type ContactSubject = (typeof contactCopy.form.subjects)[number]
+
 export function ContactPageContent() {
   const [loading, setLoading] = useState(false)
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<{
+    name: string
+    email: string
+    subject: ContactSubject
+    message: string
+  }>({
     name: '',
     email: '',
     subject: contactCopy.form.subjects[0],
@@ -57,9 +65,9 @@ export function ContactPageContent() {
           { label: 'Contact' },
         ]}
       />
-      <section className="bg-white py-16 md:py-20">
+      <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container>
-          <div className="grid gap-6 md:grid-cols-3">
+          <StaggerGrid className="grid gap-6 md:grid-cols-3" stagger={0.1}>
             <a
               href={`tel:${brand.phone.replace(/\D/g, '')}`}
               className="flex flex-col gap-3 rounded-sm border border-warm-border p-6 transition-shadow hover:shadow-md"
@@ -87,12 +95,14 @@ export function ContactPageContent() {
               <p className="text-sm text-muted-text">{contactCopy.channels[2].description}</p>
               <p className="mt-auto text-gold">{contactCopy.channels[2].action}</p>
             </a>
-          </div>
+          </StaggerGrid>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-2">
             <div>
-              <h2 className="text-2xl text-primary-text">{contactCopy.form.title}</h2>
-              <p className="mt-2 text-desc">{contactCopy.form.subtitle}</p>
+              <RevealBlock>
+                <h2 className="text-2xl text-primary-text">{contactCopy.form.title}</h2>
+                <p className="mt-2 text-desc">{contactCopy.form.subtitle}</p>
+              </RevealBlock>
               <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="contact-name">{contactCopy.form.nameLabel}</Label>
@@ -117,7 +127,7 @@ export function ContactPageContent() {
                   <Label>{contactCopy.form.subjectLabel}</Label>
                   <Select
                     value={form.subject}
-                    onValueChange={(v) => setForm({ ...form, subject: v })}
+                    onValueChange={(v) => setForm({ ...form, subject: v as ContactSubject })}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -146,7 +156,8 @@ export function ContactPageContent() {
                 </Button>
               </form>
             </div>
-            <div className="rounded-sm border border-warm-border bg-cream/50 p-6">
+            <RevealBlock delay={0.15}>
+              <div className="rounded-sm border border-warm-border bg-cream/50 p-6">
               <h3 className="text-lg text-primary-text">Head Office</h3>
               <address className="mt-4 space-y-2 text-desc not-italic">
                 <p>{brand.address}</p>
@@ -162,10 +173,11 @@ export function ContactPageContent() {
                   </a>
                 </p>
               </address>
-            </div>
+              </div>
+            </RevealBlock>
           </div>
         </Container>
-      </section>
+      </MotionSection>
       <LocationAppointmentSection />
     </>
   )

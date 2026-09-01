@@ -3,6 +3,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -66,10 +67,12 @@ function KycPage() {
   }
 
   return (
-    <section className="bg-cream py-12 md:py-16">
+    <MotionSection tier="d" className="bg-cream py-12 md:py-16">
       <Container className="max-w-lg">
-        <h1 className="text-heading text-primary-text">{legalCopy.kyc.title}</h1>
-        <p className="mt-4 text-sm text-muted-text md:text-base">{legalCopy.kyc.body}</p>
+        <RevealBlock scroll={false}>
+          <h1 className="text-heading text-primary-text">{legalCopy.kyc.title}</h1>
+          <p className="mt-4 text-sm text-muted-text md:text-base">{legalCopy.kyc.body}</p>
+        </RevealBlock>
         {submitted ? (
           <p className="mt-6 rounded-sm border border-warm-border bg-white p-4 text-sm text-emerald-deep">
             {legalCopy.kyc.statusPending}
@@ -105,6 +108,6 @@ function KycPage() {
           Go to My Account
         </a>
       </Container>
-    </section>
+    </MotionSection>
   )
 }

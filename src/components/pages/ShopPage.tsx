@@ -1,7 +1,10 @@
+'use client'
+
 import { useQuery } from '@tanstack/react-query'
 import { getAllProducts } from '@/server/functions'
 import { Container, FormField, SectionHeading } from '@/components/shared/primitives'
 import { ProductCard } from '@/components/home/ProductCard'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { shopCopy } from '@/data/copy'
 import { metaCopy } from '@/data/copy/meta'
 import { Input } from '@/components/ui/input'
@@ -13,8 +16,6 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { fadeUp, staggerContainer } from '@/lib/motion'
 
 export function ShopPage() {
   const [metal, setMetal] = useState('all')
@@ -30,10 +31,10 @@ export function ShopPage() {
     <>
       <title>{metaCopy.shop.title}</title>
       <meta name="description" content={metaCopy.shop.description} />
-      <section className="bg-white py-12 md:py-16">
+      <MotionSection tier="c" className="bg-white py-12 md:py-16">
         <Container>
           <SectionHeading title={shopCopy.title} subtitle={shopCopy.subtitle} />
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end">
+          <RevealBlock className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end">
             <FormField label={shopCopy.searchPlaceholder} htmlFor="search" className="flex-1">
               <Input
                 id="search"
@@ -67,27 +68,22 @@ export function ShopPage() {
                 </SelectContent>
               </Select>
             </FormField>
-          </div>
+          </RevealBlock>
           {isLoading ? (
             <p className="text-muted-text">Loading products…</p>
           ) : products.length === 0 ? (
             <p className="text-muted-text">{shopCopy.empty}</p>
           ) : (
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
-              className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-            >
+            <StaggerGrid className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
               {products.map((product) => (
-                <motion.div key={product.id} variants={fadeUp}>
+                <div key={product.id}>
                   <ProductCard product={product} />
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </StaggerGrid>
           )}
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }

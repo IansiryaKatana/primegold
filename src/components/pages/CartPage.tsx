@@ -1,5 +1,6 @@
 'use client'
 
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -20,9 +21,9 @@ export function CartPage() {
   return (
     <>
       <title>{metaCopy.cart.title}</title>
-      <section className="bg-cream py-10 md:py-14">
+      <MotionSection tier="d" className="bg-cream py-10 md:py-14">
         <Container>
-          <div className="mb-8 flex items-end justify-between gap-4">
+          <RevealBlock scroll={false} className="mb-8 flex items-end justify-between gap-4">
             <div>
               <h1 className="text-heading text-primary-text">Your Cart</h1>
               <p className="mt-1 text-sm text-muted-text">
@@ -36,7 +37,7 @@ export function CartPage() {
                 <a href={links.shop}>Continue Shopping</a>
               </Button>
             )}
-          </div>
+          </RevealBlock>
 
           {lines.length === 0 ? (
             <Card className="border-warm-border">
@@ -72,7 +73,7 @@ export function CartPage() {
             </div>
           )}
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }

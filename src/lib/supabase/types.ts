@@ -24,6 +24,7 @@ export type Database = {
           email: string
         }
         Update: Partial<Database['public']['Tables']['profiles']['Row']>
+        Relationships: []
       }
       branches: {
         Row: {
@@ -53,6 +54,7 @@ export type Database = {
           phone: string
         }
         Update: Partial<Database['public']['Tables']['branches']['Row']>
+        Relationships: []
       }
       products: {
         Row: {
@@ -78,6 +80,7 @@ export type Database = {
           purity: string
         }
         Update: Partial<Database['public']['Tables']['products']['Row']>
+        Relationships: []
       }
       product_variants: {
         Row: {
@@ -95,6 +98,7 @@ export type Database = {
           price_minor: number
         }
         Update: Partial<Database['public']['Tables']['product_variants']['Row']>
+        Relationships: []
       }
       collections: {
         Row: {
@@ -111,6 +115,7 @@ export type Database = {
           title: string
         }
         Update: Partial<Database['public']['Tables']['collections']['Row']>
+        Relationships: []
       }
       orders: {
         Row: {
@@ -136,6 +141,7 @@ export type Database = {
           total_minor: number
         }
         Update: Partial<Database['public']['Tables']['orders']['Row']>
+        Relationships: []
       }
       order_items: {
         Row: {
@@ -155,6 +161,7 @@ export type Database = {
           line_total_minor: number
         }
         Update: Partial<Database['public']['Tables']['order_items']['Row']>
+        Relationships: []
       }
       appointments: {
         Row: {
@@ -183,6 +190,7 @@ export type Database = {
           preferred_time: string
         }
         Update: Partial<Database['public']['Tables']['appointments']['Row']>
+        Relationships: []
       }
       kyc_cases: {
         Row: {
@@ -196,6 +204,7 @@ export type Database = {
         }
         Insert: Partial<Database['public']['Tables']['kyc_cases']['Row']>
         Update: Partial<Database['public']['Tables']['kyc_cases']['Row']>
+        Relationships: []
       }
       kyc_documents: {
         Row: {
@@ -212,6 +221,7 @@ export type Database = {
           file_path: string
         }
         Update: Partial<Database['public']['Tables']['kyc_documents']['Row']>
+        Relationships: []
       }
       newsletter_subscribers: {
         Row: {
@@ -224,6 +234,7 @@ export type Database = {
           email: string
         }
         Update: Partial<Database['public']['Tables']['newsletter_subscribers']['Row']>
+        Relationships: []
       }
       buyback_quotes: {
         Row: {
@@ -239,6 +250,7 @@ export type Database = {
           estimated_total_minor: number
         }
         Update: Partial<Database['public']['Tables']['buyback_quotes']['Row']>
+        Relationships: []
       }
       blog_posts: {
         Row: {
@@ -256,6 +268,7 @@ export type Database = {
           body_html: string
         }
         Update: Partial<Database['public']['Tables']['blog_posts']['Row']>
+        Relationships: []
       }
       carts: {
         Row: {
@@ -268,6 +281,7 @@ export type Database = {
         }
         Insert: Partial<Database['public']['Tables']['carts']['Row']>
         Update: Partial<Database['public']['Tables']['carts']['Row']>
+        Relationships: []
       }
       cart_items: {
         Row: {
@@ -285,6 +299,7 @@ export type Database = {
           unit_price_minor: number
         }
         Update: Partial<Database['public']['Tables']['cart_items']['Row']>
+        Relationships: []
       }
       price_snapshots: {
         Row: {
@@ -299,10 +314,12 @@ export type Database = {
           spot_minor: number
         }
         Update: Partial<Database['public']['Tables']['price_snapshots']['Row']>
+        Relationships: []
       }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
     Enums: Record<string, never>
+    CompositeTypes: Record<string, never>
   }
 }

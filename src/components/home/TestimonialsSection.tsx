@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { homeCopy } from '@/data/copy'
 import type { PressLogo, Testimonial } from '@/lib/types'
+import { RevealBlock, RevealText } from '@/components/motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Container, RatingStars } from '@/components/shared/primitives'
 import { PressLogoMarks } from '@/components/home/PressLogoCloud'
@@ -32,8 +33,8 @@ function SummaryCard() {
   const copy = homeCopy.testimonials
 
   return (
-    <Card className="h-full border-0 bg-white shadow-md">
-      <CardContent className="flex h-full flex-col justify-center gap-3 p-5">
+    <Card className="h-full border-0 bg-white text-primary-text shadow-md">
+      <CardContent className="flex h-full flex-col justify-center gap-3 bg-white p-5">
         <p className="text-lg text-primary-text md:text-xl">{copy.summaryLabel}</p>
         <RatingStars rating={5} className="[&_svg]:size-5" />
         <p className="text-sm font-extralight text-muted-text md:text-base">
@@ -88,20 +89,21 @@ export function TestimonialsSection({ testimonials, pressLogos }: TestimonialsSe
       <div className="absolute inset-0 bg-emerald-dark/20" aria-hidden />
 
       <Container className="relative">
-        <h2
+        <RevealText
+          as="h2"
           id="testimonials-heading"
           className="text-heading-inverse mb-10 text-center md:mb-14"
         >
           {copy.eyebrow}
-        </h2>
+        </RevealText>
 
         <div className="rounded-xl border border-white/20 bg-emerald-dark p-6 md:p-10 lg:p-12">
-          <div className="mb-8 max-w-2xl">
+          <RevealBlock className="mb-8 max-w-2xl">
             <h3 className="text-2xl text-white md:text-3xl lg:text-4xl">{copy.title}</h3>
             <p className="mt-2 text-base font-extralight text-white/70 md:text-lg">
               {copy.subtitle}
             </p>
-          </div>
+          </RevealBlock>
 
           <div className="-mx-2 overflow-hidden px-2" ref={emblaRef}>
             <div className="flex gap-4">
@@ -137,12 +139,12 @@ export function TestimonialsSection({ testimonials, pressLogos }: TestimonialsSe
           )}
 
           {pressLogos.length > 0 && (
-            <div id="press" className="mt-10 border-t border-white/15 pt-8 md:mt-12 md:pt-10">
+            <RevealBlock className="mt-10 border-t border-white/15 pt-8 md:mt-12 md:pt-10">
               <p className="mb-6 text-center text-xs font-normal uppercase tracking-[0.2em] text-gold md:text-sm">
                 {homeCopy.press.title}
               </p>
               <PressLogoMarks logos={pressLogos} variant="dark" />
-            </div>
+            </RevealBlock>
           )}
         </div>
       </Container>

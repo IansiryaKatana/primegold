@@ -1,6 +1,9 @@
+'use client'
+
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getInsights } from '@/server/functions'
+import { MotionSection, StaggerGrid } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { PageHero } from '@/components/pages/PageHero'
 import { insightLink, links } from '@/lib/links'
@@ -28,9 +31,9 @@ function InsightsIndexPage() {
           { label: 'Insights' },
         ]}
       />
-      <section className="bg-white py-16 md:py-20">
+      <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerGrid className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.1}>
             {articles.map((article) => (
               <a
                 key={article.slug}
@@ -50,9 +53,9 @@ function InsightsIndexPage() {
                 </div>
               </a>
             ))}
-          </div>
+          </StaggerGrid>
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }

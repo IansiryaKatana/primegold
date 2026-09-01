@@ -1,7 +1,10 @@
+'use client'
+
 import { useQuery } from '@tanstack/react-query'
 import { getHomepageContent } from '@/server/functions'
 import { homeCopy } from '@/data/copy'
 import { links } from '@/lib/links'
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { PageHero } from '@/components/pages/PageHero'
 import { PressLogoCloud } from '@/components/home/PressLogoCloud'
@@ -25,15 +28,19 @@ export function PressPageContent() {
           { label: 'Press' },
         ]}
       />
-      <section className="bg-white py-16 md:py-20">
+      <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container className="max-w-3xl text-center">
-          <p className="text-desc">
-            {homeCopy.press.title} — trusted by customers and recognized by industry media
-            for excellence in buyback service and bullion retail.
-          </p>
+          <RevealBlock>
+            <p className="text-desc">
+              {homeCopy.press.title} — trusted by customers and recognized by industry media
+              for excellence in buyback service and bullion retail.
+            </p>
+          </RevealBlock>
         </Container>
-      </section>
-      <PressLogoCloud logos={data?.pressLogos ?? []} />
+      </MotionSection>
+      <MotionSection tier="b" className="bg-cream py-10">
+        <PressLogoCloud logos={data?.pressLogos ?? []} />
+      </MotionSection>
     </>
   )
 }

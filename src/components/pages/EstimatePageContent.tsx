@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { estimateCopy } from '@/data/copy'
 import { links } from '@/lib/links'
+import { MotionSection, RevealBlock, RevealText, StaggerGrid } from '@/components/motion'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -63,7 +64,7 @@ export function EstimatePageContent() {
         ]}
       />
 
-      <section className="bg-cream py-16 md:py-20">
+      <MotionSection tier="d" className="bg-cream py-16 md:py-20">
         <Container>
           <div className="grid gap-10 lg:grid-cols-2">
             <form
@@ -132,7 +133,7 @@ export function EstimatePageContent() {
               )}
             </form>
 
-            <div>
+            <RevealBlock>
               <h2 className="text-xl text-primary-text md:text-2xl">
                 {estimateCopy.rateTableTitle}
               </h2>
@@ -155,27 +156,31 @@ export function EstimatePageContent() {
                   </tbody>
                 </table>
               </div>
-            </div>
+            </RevealBlock>
           </div>
         </Container>
-      </section>
+      </MotionSection>
 
-      <section className="bg-white py-16 md:py-20">
+      <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container className="max-w-3xl">
-          <h2 className="text-2xl text-primary-text md:text-3xl">{estimateCopy.education.title}</h2>
-          <ul className="mt-6 flex flex-col gap-3">
+          <RevealText as="h2" className="text-2xl text-primary-text md:text-3xl">
+            {estimateCopy.education.title}
+          </RevealText>
+          <StaggerGrid className="mt-6 flex flex-col gap-3" stagger={0.08}>
             {estimateCopy.education.points.map((point) => (
               <li key={point} className="flex items-start gap-3 text-desc">
                 <Check className="mt-0.5 size-5 shrink-0 text-gold" aria-hidden />
                 {point}
               </li>
             ))}
-          </ul>
-          <Button variant="gold" className="mt-8" asChild>
-            <a href={links.locations}>Book an In-Branch Appraisal</a>
-          </Button>
+          </StaggerGrid>
+          <RevealBlock className="mt-8">
+            <Button variant="gold" asChild>
+              <a href={links.locations}>Book an In-Branch Appraisal</a>
+            </Button>
+          </RevealBlock>
         </Container>
-      </section>
+      </MotionSection>
     </>
   )
 }
