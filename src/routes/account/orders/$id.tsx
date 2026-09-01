@@ -3,6 +3,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { MotionSection, RevealBlock } from '@/components/motion'
+import { AppLink } from '@/components/shared/AppLink'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { lookupOrder } from '@/server/functions'
@@ -45,7 +46,7 @@ function OrderDetailPage() {
         <Container>
           <h1 className="text-heading text-primary-text">Order Not Found</h1>
           <Button variant="emerald" className="mt-4" asChild>
-            <a href={links.orderLookup}>Look Up Order</a>
+            <AppLink href={links.orderLookup}>Look Up Order</AppLink>
           </Button>
         </Container>
       </section>
@@ -59,7 +60,7 @@ function OrderDetailPage() {
           <h1 className="text-heading text-primary-text">Order {order.orderNumber}</h1>
           <p className="mt-2 text-sm text-muted-text">Status: {order.status}</p>
         </RevealBlock>
-        <ul className="mt-6 space-y-3 rounded-sm border border-warm-border bg-white p-6">
+        <ul className="surface-panel mt-6 space-y-3 p-6">
           {order.lines.map((line) => (
             <li key={line.name} className="flex justify-between text-sm">
               <span>{line.name} × {line.qty}</span>
@@ -72,7 +73,7 @@ function OrderDetailPage() {
           <span className="text-gold">{formatCurrency(order.total)}</span>
         </div>
         <Button variant="outlineGold" className="mt-8" asChild>
-          <a href={links.accountOrders}>Back to Orders</a>
+          <AppLink href={links.accountOrders}>Back to Orders</AppLink>
         </Button>
       </Container>
     </MotionSection>

@@ -1,6 +1,7 @@
 'use client'
 
 import type { FAQ } from '@/lib/types'
+import { AppLink } from '@/components/shared/AppLink'
 import { links } from '@/lib/links'
 import { homeCopy } from '@/data/copy'
 import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
@@ -22,7 +23,7 @@ export function FAQSection({ faqs }: FAQSectionProps) {
         </StaggerGrid>
         <RevealBlock className="mt-8 flex justify-center">
           <Button variant="outlineGold" asChild>
-            <a href={links.faq}>{homeCopy.faq.viewAll}</a>
+            <AppLink href={links.faq}>{homeCopy.faq.viewAll}</AppLink>
           </Button>
         </RevealBlock>
       </Container>

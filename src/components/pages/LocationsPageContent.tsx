@@ -3,9 +3,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { MapPin } from 'lucide-react'
 import { getBranches } from '@/server/functions'
+import { AppLink } from '@/components/shared/AppLink'
+import { SnapCarousel } from '@/components/shared/SnapCarousel'
 import { locationsCopy } from '@/data/copy'
 import { locationLink, links } from '@/lib/links'
-import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/shared/primitives'
 import { PageHero } from '@/components/pages/PageHero'
@@ -31,7 +33,7 @@ export function LocationsPageContent() {
         ]}
       >
         <Button variant="gold" asChild>
-          <a href={`${links.home}#locations`}>Book Appointment</a>
+          <AppLink href={`${links.home}#locations`}>Book Appointment</AppLink>
         </Button>
       </PageHero>
 
@@ -40,12 +42,12 @@ export function LocationsPageContent() {
           <RevealBlock className="mb-10">
             <BranchMap className="min-h-[360px]" />
           </RevealBlock>
-          <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
+          <SnapCarousel gridClassName="gap-4 lg:grid-cols-3">
             {branches.map((branch) => (
-              <a
+              <AppLink
                 key={branch.id}
                 href={locationLink(branch.slug!)}
-                className="group rounded-sm border border-warm-border p-5 transition-shadow hover:shadow-md"
+                className="surface-interactive group block h-full p-5"
               >
                 <div className="flex items-start gap-3">
                   <MapPin className="mt-0.5 size-5 shrink-0 text-gold" aria-hidden />
@@ -59,9 +61,9 @@ export function LocationsPageContent() {
                     <p className="mt-1 text-sm text-gold">{branch.phone}</p>
                   </div>
                 </div>
-              </a>
+              </AppLink>
             ))}
-          </StaggerGrid>
+          </SnapCarousel>
         </Container>
       </MotionSection>
     </>

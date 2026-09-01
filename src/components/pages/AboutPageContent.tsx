@@ -1,8 +1,9 @@
 'use client'
 
 import { aboutCopy, brand } from '@/data/copy'
+import { AppLink } from '@/components/shared/AppLink'
 import { links } from '@/lib/links'
-import { MotionSection, RevealBlock, RevealText, StaggerGrid } from '@/components/motion'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/shared/primitives'
 import { PageHero } from '@/components/pages/PageHero'
@@ -23,9 +24,9 @@ export function AboutPageContent() {
       />
       <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container className="max-w-3xl">
-          <RevealText as="h2" className="text-2xl text-primary-text md:text-3xl">
-            {aboutCopy.story.heading}
-          </RevealText>
+          <RevealBlock>
+            <h2 className="text-subheading text-primary-text">{aboutCopy.story.heading}</h2>
+          </RevealBlock>
           <RevealBlock className="mt-4">
             <p className="text-desc">{aboutCopy.story.body}</p>
           </RevealBlock>
@@ -48,14 +49,14 @@ export function AboutPageContent() {
       </MotionSection>
       <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container>
-          <RevealText as="h2" className="text-center text-2xl text-primary-text md:text-3xl">
-            What We Stand For
-          </RevealText>
+          <RevealBlock>
+            <h2 className="text-subheading text-center text-primary-text">What We Stand For</h2>
+          </RevealBlock>
           <StaggerGrid className="mt-10 grid gap-6 sm:grid-cols-2" stagger={0.1}>
             {aboutCopy.values.map((value) => (
               <div
                 key={value.title}
-                className="rounded-sm border border-warm-border p-6"
+                className="surface-panel p-6"
               >
                 <h3 className="text-lg text-primary-text">{value.title}</h3>
                 <p className="mt-2 text-desc">{value.description}</p>
@@ -66,18 +67,18 @@ export function AboutPageContent() {
       </MotionSection>
       <MotionSection tier="b" className="bg-emerald-deep py-14">
         <Container className="flex flex-col items-center text-center">
-          <RevealText as="h2" className="text-2xl text-white md:text-3xl">
-            {aboutCopy.cta.title}
-          </RevealText>
+          <RevealBlock>
+            <h2 className="text-subheading text-white">{aboutCopy.cta.title}</h2>
+          </RevealBlock>
           <RevealBlock className="mt-3 max-w-lg">
             <p className="text-white/80">{aboutCopy.cta.body}</p>
           </RevealBlock>
           <RevealBlock className="mt-6 flex flex-wrap justify-center gap-3">
             <Button variant="gold" asChild>
-              <a href={links.locations}>{aboutCopy.cta.primary}</a>
+              <AppLink href={links.locations}>{aboutCopy.cta.primary}</AppLink>
             </Button>
             <Button variant="outlineGold" asChild>
-              <a href={links.shop}>{aboutCopy.cta.secondary}</a>
+              <AppLink href={links.shop}>{aboutCopy.cta.secondary}</AppLink>
             </Button>
           </RevealBlock>
         </Container>

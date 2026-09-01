@@ -2,6 +2,7 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 import { MotionSection, RevealBlock } from '@/components/motion'
+import { AppLink } from '@/components/shared/AppLink'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { links } from '@/lib/links'
@@ -38,10 +39,10 @@ function CheckoutSuccessPage() {
         </RevealBlock>
         <RevealBlock scroll={false} delay={0.2} className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Button variant="emerald" asChild>
-            <a href={`${links.checkoutKyc}?order=${encodeURIComponent(order)}`}>Complete Identity Verification</a>
+            <AppLink href={`${links.checkoutKyc}?order=${encodeURIComponent(order)}`}>Complete Identity Verification</AppLink>
           </Button>
           <Button variant="outlineGold" asChild>
-            <a href={links.shop}>Continue Shopping</a>
+            <AppLink href={links.shop}>Continue Shopping</AppLink>
           </Button>
         </RevealBlock>
       </Container>

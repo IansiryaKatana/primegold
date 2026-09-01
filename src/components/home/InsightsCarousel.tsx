@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { insightLink } from '@/lib/links'
+import { AppLink } from '@/components/shared/AppLink'
 import { homeCopy } from '@/data/copy'
 import type { InsightArticle } from '@/lib/types'
 import { MotionSection } from '@/components/motion'
@@ -76,7 +77,7 @@ export function InsightsCarousel({ articles }: InsightsCarouselProps) {
                       {article.title}
                     </h3>
                     <Button variant="gold" size="sm" className="w-fit" asChild>
-                      <a href={insightLink(article.slug)}>Learn More</a>
+                      <AppLink href={insightLink(article.slug)}>Learn More</AppLink>
                     </Button>
                   </div>
                 </div>

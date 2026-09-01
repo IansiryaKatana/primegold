@@ -2,9 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { homeCopy } from '@/data/copy'
+import { AppLink } from '@/components/shared/AppLink'
+import { SnapCarousel } from '@/components/shared/SnapCarousel'
 import { links } from '@/lib/links'
 import { getFeaturedProducts } from '@/server/functions'
-import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Button } from '@/components/ui/button'
 import { ProductCard } from '@/components/home/ProductCard'
 import { Container, SectionHeading } from '@/components/shared/primitives'
@@ -23,17 +25,17 @@ export function BestSellingProducts() {
           subtitle={homeCopy.products.subtitle}
         />
 
-        <StaggerGrid className="grid min-w-0 gap-5 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
+        <SnapCarousel gridClassName="min-w-0 gap-5 lg:grid-cols-4">
           {products.map((product) => (
             <div key={product.id} className="min-w-0">
               <ProductCard product={product} />
             </div>
           ))}
-        </StaggerGrid>
+        </SnapCarousel>
 
         <RevealBlock className="mt-10 flex justify-center">
           <Button variant="outlineGold" size="lg" asChild>
-            <a href={links.shop}>{homeCopy.products.viewAll}</a>
+            <AppLink href={links.shop}>{homeCopy.products.viewAll}</AppLink>
           </Button>
         </RevealBlock>
       </Container>

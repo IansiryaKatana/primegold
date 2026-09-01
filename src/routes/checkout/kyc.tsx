@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { MotionSection, RevealBlock } from '@/components/motion'
+import { AppLink } from '@/components/shared/AppLink'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -74,11 +75,11 @@ function KycPage() {
           <p className="mt-4 text-sm text-muted-text md:text-base">{legalCopy.kyc.body}</p>
         </RevealBlock>
         {submitted ? (
-          <p className="mt-6 rounded-sm border border-warm-border bg-white p-4 text-sm text-emerald-deep">
+          <p className="surface-callout mt-6 p-4 text-sm text-emerald-deep">
             {legalCopy.kyc.statusPending}
           </p>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4 rounded-sm border border-warm-border bg-white p-6">
+          <form onSubmit={handleSubmit} className="surface-panel mt-8 flex flex-col gap-4 p-6">
             <div>
               <Label htmlFor="email">Email</Label>
               <input id="email" required type="email" className="mt-1 w-full rounded-sm border border-warm-border px-3 py-2 text-sm" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -104,9 +105,9 @@ function KycPage() {
             </Button>
           </form>
         )}
-        <a href={links.account} className="mt-4 inline-block text-sm text-emerald-deep hover:underline">
+        <AppLink href={links.account} className="mt-4 inline-block text-sm text-emerald-deep hover:underline">
           Go to My Account
-        </a>
+        </AppLink>
       </Container>
     </MotionSection>
   )

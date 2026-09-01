@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getInsights } from '@/server/functions'
 import { MotionSection, StaggerGrid } from '@/components/motion'
+import { AppLink } from '@/components/shared/AppLink'
 import { Container } from '@/components/shared/primitives'
 import { PageHero } from '@/components/pages/PageHero'
 import { insightLink, links } from '@/lib/links'
@@ -35,15 +36,16 @@ function InsightsIndexPage() {
         <Container>
           <StaggerGrid className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" stagger={0.1}>
             {articles.map((article) => (
-              <a
+              <AppLink
                 key={article.slug}
                 href={insightLink(article.slug)}
-                className="group overflow-hidden rounded-sm border border-warm-border"
+                className="surface-interactive group overflow-hidden"
               >
                 <div className="aspect-[3/4] overflow-hidden">
                   <img
                     src={article.imageUrl}
                     alt=""
+                    loading="lazy"
                     className="size-full object-cover transition-transform group-hover:scale-105"
                   />
                 </div>
@@ -51,7 +53,7 @@ function InsightsIndexPage() {
                   <h2 className="text-base text-primary-text md:text-lg">{article.title}</h2>
                   <p className="mt-1 text-sm text-muted-text">{article.excerpt}</p>
                 </div>
-              </a>
+              </AppLink>
             ))}
           </StaggerGrid>
         </Container>

@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from 'react'
 import { useGSAP, scrollReveal } from '@/lib/gsap'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { useMotionReady } from '@/components/motion/SitePreloader'
 import { cn } from '@/lib/utils'
 
 type StaggerGridProps = {
@@ -20,10 +21,11 @@ export function StaggerGrid({
 }: StaggerGridProps) {
   const ref = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
+  const ready = useMotionReady()
 
   useGSAP(
     () => {
-      if (!ref.current || reduced) return
+      if (!ref.current || reduced || !ready) return
       const items = ref.current.querySelectorAll(childSelector)
       if (!items.length) return
 
@@ -32,7 +34,7 @@ export function StaggerGrid({
         scrollTrigger: { trigger: ref.current, once: true },
       })
     },
-    { scope: ref, dependencies: [reduced, stagger, childSelector] },
+    { scope: ref, dependencies: [reduced, stagger, childSelector, ready] },
   )
 
   return (

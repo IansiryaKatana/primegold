@@ -1,6 +1,7 @@
 'use client'
 
 import { MotionSection, RevealBlock } from '@/components/motion'
+import { AppLink } from '@/components/shared/AppLink'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -34,24 +35,24 @@ export function CartPage() {
             </div>
             {lines.length > 0 && (
               <Button variant="outlineGold" asChild className="hidden sm:inline-flex">
-                <a href={links.shop}>Continue Shopping</a>
+                <AppLink href={links.shop}>Continue Shopping</AppLink>
               </Button>
             )}
           </RevealBlock>
 
           {lines.length === 0 ? (
-            <Card className="border-warm-border">
+            <Card>
               <CardContent className="flex flex-col items-center gap-4 py-16 text-center">
                 <ShoppingBag className="size-14 text-muted-text/30" />
                 <p className="text-muted-text">Your cart is empty.</p>
                 <Button variant="emerald" asChild>
-                  <a href={links.shop}>Browse Products</a>
+                  <AppLink href={links.shop}>Browse Products</AppLink>
                 </Button>
               </CardContent>
             </Card>
           ) : (
             <div className="grid gap-8 lg:grid-cols-3">
-              <Card className="border-warm-border lg:col-span-2">
+              <Card className="lg:col-span-2">
                 <CardContent className="flex flex-col gap-4 p-6">
                   {lines.map((line) => (
                     <CartLineItem

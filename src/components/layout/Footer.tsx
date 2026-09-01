@@ -18,6 +18,7 @@ import { PaymentMethods } from '@/components/shared/PaymentIcons'
 import { subscribeNewsletter } from '@/server/functions'
 import { brand } from '@/data/copy'
 import { footerNavColumns, links } from '@/lib/links'
+import { AppLink } from '@/components/shared/AppLink'
 import { cn } from '@/lib/utils'
 
 const footerSectionTitles = {
@@ -40,7 +41,7 @@ function FooterColumn({
   return (
     <div className={cn('flex min-w-0 flex-col gap-4', className)}>
       {title && (
-        <h4 className="text-xs font-normal uppercase tracking-[0.15em] text-gold md:text-sm">
+        <h4 className="text-label text-gold">
           {title}
         </h4>
       )}
@@ -62,12 +63,12 @@ function FooterLinkColumn({
         <ul className="flex flex-col gap-2">
           {items.map((link) => (
             <li key={link.label}>
-              <a
+              <AppLink
                 href={link.href}
-                className="text-sm font-extralight leading-snug text-white/70 transition-colors hover:text-white"
+                className="text-sm font-light leading-snug text-white/70 transition-colors hover:text-white"
               >
                 {link.label}
-              </a>
+              </AppLink>
             </li>
           ))}
         </ul>
@@ -97,7 +98,7 @@ function NewsletterForm() {
 
   return (
     <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
-      <p className="text-sm font-extralight leading-relaxed text-white/60">
+      <p className="text-sm font-light leading-relaxed text-white/70">
         Market insights and exclusive offers.
       </p>
       <div className="flex flex-col gap-2">
@@ -124,10 +125,10 @@ function NewsletterForm() {
 function BrandColumn() {
   return (
     <FooterColumn className="min-w-0 overflow-hidden">
-      <a href={links.home} className="flex w-full items-center">
+      <AppLink href={links.home} className="flex w-full items-center">
         <BrandLogo className="h-11 w-auto max-w-full md:h-12" />
-      </a>
-      <p className="w-full text-sm font-extralight leading-relaxed text-white/70">
+      </AppLink>
+      <p className="w-full text-sm font-light leading-relaxed text-white/70">
         {brand.blurb}
       </p>
     </FooterColumn>
@@ -137,7 +138,7 @@ function BrandColumn() {
 function ContactColumn() {
   return (
     <FooterColumn title={footerSectionTitles.contact}>
-      <ul className="flex flex-col gap-2.5 text-sm font-extralight text-white/80">
+      <ul className="flex flex-col gap-2.5 text-sm font-light text-white/80">
         <li>
           <a
             href={`mailto:${brand.email}`}
@@ -160,7 +161,7 @@ function ContactColumn() {
           <MapPin className="mt-0.5 size-4 shrink-0 text-gold" />
           <span className="leading-snug">{brand.address}</span>
         </li>
-        <li className="text-white/60">{brand.hours}</li>
+        <li className="text-white/70">{brand.hours}</li>
       </ul>
     </FooterColumn>
   )
@@ -193,7 +194,7 @@ export function Footer() {
   return (
     <footer id="contact" className="w-full bg-emerald-deep text-white">
       {/* Full-width main footer */}
-      <div className="w-full border-b border-white/10 px-5 py-12 sm:px-8 md:py-14 lg:px-12 xl:px-16">
+      <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 md:py-14 lg:px-8">
         <div className="hidden lg:block">
           <FooterMainGrid />
         </div>
@@ -214,16 +215,16 @@ export function Footer() {
           <Separator className="my-8 bg-white/10" />
           <Accordion type="multiple" className="w-full">
             <AccordionItem value="company" className="border-white/10">
-              <AccordionTrigger className="py-4 text-sm uppercase tracking-wider text-gold hover:no-underline">
+              <AccordionTrigger className="text-label py-4 text-gold hover:no-underline">
                 {footerSectionTitles.company}
               </AccordionTrigger>
               <AccordionContent>
                 <ul className="flex flex-col gap-2.5 pb-2">
                   {footerNavColumns.company.map((link) => (
                     <li key={link.label}>
-                      <a href={link.href} className="text-sm font-extralight text-white/70">
+                      <AppLink href={link.href} className="text-sm font-light text-white/70">
                         {link.label}
-                      </a>
+                      </AppLink>
                     </li>
                   ))}
                 </ul>
@@ -240,24 +241,24 @@ export function Footer() {
       </div>
 
       {/* Full-width bottom bar */}
-      <div className="w-full px-5 py-6 sm:px-8 lg:px-12 xl:px-16">
+      <div className="mx-auto w-full max-w-7xl border-t border-white/10 px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-          <p className="text-center text-xs text-white/60 sm:text-left">
+          <p className="text-center text-xs text-white/70 sm:text-left">
             © {new Date().getFullYear()} {brand.name}. All rights reserved.
           </p>
           <nav
             aria-label="Legal"
-            className="flex flex-wrap gap-x-5 gap-y-1 text-xs text-white/60"
+            className="flex flex-wrap gap-x-5 gap-y-1 text-xs text-white/70"
           >
-            <a href={links.privacy} className="hover:text-white">
+            <AppLink href={links.privacy} className="hover:text-white">
               Privacy Policy
-            </a>
-            <a href={links.terms} className="hover:text-white">
+            </AppLink>
+            <AppLink href={links.terms} className="hover:text-white">
               Terms of Service
-            </a>
-            <a href={links.shipping} className="hover:text-white">
+            </AppLink>
+            <AppLink href={links.shipping} className="hover:text-white">
               Shipping & Returns
-            </a>
+            </AppLink>
           </nav>
           <PaymentMethods />
         </div>

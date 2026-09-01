@@ -48,7 +48,7 @@ export function BranchMapClient({
   return (
     <div
       className={cn(
-        'branch-map relative z-0 isolate min-h-[240px] flex-1 overflow-hidden rounded-sm border border-warm-border',
+        'branch-map surface-panel relative z-0 isolate min-h-[240px] flex-1 overflow-hidden',
         className,
       )}
     >

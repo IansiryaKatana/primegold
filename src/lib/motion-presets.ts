@@ -2,7 +2,8 @@ export const motionEase = 'power3.out'
 
 export const scrollDefaults = {
   start: 'top 85%',
-  toggleActions: 'play none none reverse',
+  toggleActions: 'play none none none',
+  once: true,
 } as const
 
 export const revealDefaults = {

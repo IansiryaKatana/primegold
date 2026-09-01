@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react'
 import { Minus, TrendingDown, TrendingUp } from 'lucide-react'
 import { getMarketTicker } from '@/server/functions'
 import { links } from '@/lib/links'
+import { AppLink } from '@/components/shared/AppLink'
 import { cn } from '@/lib/utils'
 import { gsap } from '@/lib/gsap'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
@@ -74,12 +75,12 @@ export function TopMarketBar() {  const dotRef = useRef<HTMLSpanElement>(null)
           </span>
         </div>
         <div className="flex shrink-0 items-center gap-4 text-gold">
-          <a href={links.account} className="hover:text-gold-light">
+          <AppLink href={links.account} className="hover:text-gold-light">
             My Account
-          </a>
-          <a href={links.cart} className="hover:text-gold-light">
+          </AppLink>
+          <AppLink href={links.cart} className="hover:text-gold-light">
             Cart
-          </a>
+          </AppLink>
         </div>
       </div>
     </div>

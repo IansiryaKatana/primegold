@@ -75,7 +75,7 @@ export const fadeIn = {
 }
 
 export const pageTransition = {
-  initial: { opacity: 0, y: 12 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: motionEase } },
-  exit: { opacity: 0, y: -8, transition: { duration: 0.25 } },
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.38, ease: motionEase, delay: 0.06 } },
+  exit: { opacity: 0, transition: { duration: 0.22, ease: motionEase } },
 }

@@ -74,7 +74,7 @@ export function InvestmentCalculator({ page = false }: { page?: boolean }) {
         viewport={{ once: true }}
         variants={fadeUp}
         onSubmit={handleCalculate}
-        className="mx-auto max-w-6xl rounded-sm border border-warm-border bg-white p-6 shadow-sm md:p-8"
+        className="surface-panel mx-auto max-w-6xl p-6 md:p-8"
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] lg:items-end">
           <FormField label="I am investing in">
@@ -148,7 +148,7 @@ export function InvestmentCalculator({ page = false }: { page?: boolean }) {
               Estimated return: {formatCurrency(result.estimatedReturn)} (
               {result.percentageReturn.toFixed(1)}%)
             </p>
-            <p className="mt-2 text-sm font-extralight text-muted-text md:text-base">
+            <p className="mt-2 text-sm font-light text-muted-text md:text-base">
               {copy.disclaimer}
             </p>
           </div>

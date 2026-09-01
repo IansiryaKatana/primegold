@@ -19,7 +19,14 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<'li'>) {
   return <li className={cn('inline-flex items-center gap-1.5', className)} {...props} />
 }
 
-function BreadcrumbLink({ className, ...props }: React.ComponentProps<'a'>) {
+function BreadcrumbLink({
+  asChild,
+  className,
+  ...props
+}: React.ComponentProps<'a'> & { asChild?: boolean }) {
+  if (asChild) {
+    return <>{props.children}</>
+  }
   return (
     <a
       className={cn('transition-colors hover:text-emerald-deep', className)}

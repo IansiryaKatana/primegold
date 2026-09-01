@@ -2,6 +2,7 @@
 
 import { ShieldCheck, Truck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { AppLink } from '@/components/shared/AppLink'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { formatCurrency } from '@/lib/utils'
@@ -35,7 +36,7 @@ export function CartSummary({
   const total = subtotal + shippingCost
 
   return (
-    <Card className="border-warm-border shadow-sm">
+    <Card>
       <CardHeader className="pb-4">
         <CardTitle className="text-lg text-primary-text">Order Summary</CardTitle>
       </CardHeader>
@@ -46,7 +47,7 @@ export function CartSummary({
             {(Object.keys(SHIPPING_RATES) as Array<keyof typeof SHIPPING_RATES>).map((key) => (
               <label
                 key={key}
-                className="flex cursor-pointer items-center gap-3 rounded-sm border border-warm-border p-3 has-[:checked]:border-emerald-deep has-[:checked]:bg-cream/50"
+                className="surface-inset flex cursor-pointer items-center gap-3 p-3 has-[:checked]:bg-cream/40 has-[:checked]:ring-gold/30"
               >
                 <input
                   type="radio"
@@ -84,14 +85,14 @@ export function CartSummary({
           </div>
         </div>
 
-        <div className="flex items-start gap-2 rounded-sm bg-cream p-3 text-xs text-muted-text">
+        <div className="surface-callout flex items-start gap-2 p-3 text-sm text-primary-text">
           <ShieldCheck className="mt-0.5 size-4 shrink-0 text-emerald-deep" />
           <span>Secure checkout. Identity verification required before shipment. Prices lock at payment.</span>
         </div>
 
         {ctaHref ? (
           <Button variant="emerald" className="w-full" size="lg" asChild disabled={itemCount === 0}>
-            <a href={itemCount > 0 ? ctaHref : links.shop}>{ctaLabel}</a>
+            <AppLink href={itemCount > 0 && ctaHref ? ctaHref : links.shop}>{ctaLabel}</AppLink>
           </Button>
         ) : (
           <Button

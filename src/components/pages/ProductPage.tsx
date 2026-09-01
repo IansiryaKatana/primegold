@@ -4,12 +4,13 @@ import { useQuery } from '@tanstack/react-query'
 import { useState, useMemo } from 'react'
 import { ShieldCheck, Truck, Lock } from 'lucide-react'
 import { getProduct } from '@/server/functions'
+import { AppLink } from '@/components/shared/AppLink'
 import { formatCurrency, cn } from '@/lib/utils'
 import { links } from '@/lib/links'
 import { shopCopy, productsCopy } from '@/data/copy'
 import { metaCopy } from '@/data/copy/meta'
 import { JsonLd, productJsonLd } from '@/lib/seo'
-import { MotionSection, RevealBlock, RevealText, StaggerGrid } from '@/components/motion'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { resolveUnitPrice } from '@/lib/cart'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -79,7 +80,7 @@ export function ProductPage({ slug }: ProductPageProps) {
       <Container className="py-20 text-center">
         <h1 className="text-heading text-primary-text">Product Not Found</h1>
         <Button variant="emerald" className="mt-6" asChild>
-          <a href={links.shop}>View All Products</a>
+          <AppLink href={links.shop}>View All Products</AppLink>
         </Button>
       </Container>
     )
@@ -117,7 +118,7 @@ export function ProductPage({ slug }: ProductPageProps) {
         </RevealBlock>
 
         <StaggerGrid className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16" stagger={0.12}>
-          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-sm bg-image-surface">
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-image-surface ring-1 ring-primary-text/5">
             <img
               src={product.imageUrl}
               alt={product.name}
@@ -141,7 +142,7 @@ export function ProductPage({ slug }: ProductPageProps) {
 
             <div>
               <h1 className="text-heading text-primary-text">{product.name}</h1>
-              <p className="mt-3 text-3xl text-gold md:text-4xl">{formatCurrency(unitPrice)}</p>
+              <p className="mt-3 text-3xl text-gold tabular-nums md:text-4xl">{formatCurrency(unitPrice)}</p>
               {unitPrice < product.price && (
                 <p className="mt-1 text-sm text-emerald-deep">
                   Bulk pricing applied — was {formatCurrency(product.price)}
@@ -153,7 +154,7 @@ export function ProductPage({ slug }: ProductPageProps) {
 
             <p className="text-desc leading-relaxed">{product.description}</p>
 
-            <Card className="border-warm-border shadow-sm">
+            <Card>
               <CardContent className="flex flex-col gap-5 p-6">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>
@@ -189,11 +190,12 @@ export function ProductPage({ slug }: ProductPageProps) {
             </Card>
 
             {product.bulkTiers && product.bulkTiers.length > 1 && (
-              <Card className="border-warm-border">
+              <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-primary-text">{shopCopy.bulkPricing}</CardTitle>
+                  <CardTitle className="text-base">{shopCopy.bulkPricing}</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 pb-4">
+                  <div className="surface-inset mx-6 overflow-hidden">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -215,6 +217,7 @@ export function ProductPage({ slug }: ProductPageProps) {
                       ))}
                     </TableBody>
                   </Table>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -223,11 +226,8 @@ export function ProductPage({ slug }: ProductPageProps) {
               {productsCopy.trustStrip.map((label, i) => {
                 const Icon = trustIcons[i] ?? ShieldCheck
                 return (
-                  <div
-                    key={label}
-                    className="flex items-center gap-2 rounded-sm border border-warm-border bg-white px-3 py-2.5 text-sm text-muted-text"
-                  >
-                    <Icon className="size-4 shrink-0 text-emerald-deep" />
+                  <div key={label} className="surface-feature flex items-center gap-2.5 px-4 py-3 text-sm text-primary-text">
+                    <Icon className="size-4 shrink-0 text-gold" />
                     {label}
                   </div>
                 )
@@ -238,9 +238,9 @@ export function ProductPage({ slug }: ProductPageProps) {
 
         {product.related && product.related.length > 0 && (
           <div className="mt-16 border-t border-warm-border pt-16">
-            <RevealText as="h2" className="text-2xl text-primary-text md:text-3xl">
-              {shopCopy.related}
-            </RevealText>
+            <RevealBlock>
+              <h2 className="text-subheading text-primary-text">{shopCopy.related}</h2>
+            </RevealBlock>
             <StaggerGrid className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
               {product.related.map((related) => (
                 <ProductCard key={related.id} product={related} />

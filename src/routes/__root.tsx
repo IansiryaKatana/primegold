@@ -8,6 +8,8 @@ import {
 import appCss from '@/styles/app.css?url'
 import { AppLayout } from '@/components/layout/AppLayout'
 
+const preloadSkipScript = `try{if(sessionStorage.getItem('pg-preloaded')||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('preload-skip')}catch(e){}`
+
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -41,7 +43,7 @@ export const Route = createRootRoute({
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Pliant:wght@200;300;400&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&display=swap',
       },
     ],
   }),
@@ -65,6 +67,21 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body suppressHydrationWarning>
+        <script dangerouslySetInnerHTML={{ __html: preloadSkipScript }} />
+        <div id="site-preloader" className="site-preloader" aria-hidden="true">
+          <div className="site-preloader__panel site-preloader__panel--top" />
+          <div className="site-preloader__panel site-preloader__panel--bottom" />
+          <div className="site-preloader__brand">
+            <img
+              className="site-preloader__logo"
+              src="/logo.png"
+              alt=""
+              width={320}
+              height={48}
+            />
+            <div className="site-preloader__line" />
+          </div>
+        </div>
         {children}
         <Scripts />
       </body>

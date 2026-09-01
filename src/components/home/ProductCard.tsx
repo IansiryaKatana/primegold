@@ -1,6 +1,7 @@
 'use client'
 
 import type { Product } from '@/lib/types'
+import { AppLink } from '@/components/shared/AppLink'
 import { productLink } from '@/lib/links'
 import { formatStartingPrice } from '@/lib/utils'
 import { cn } from '@/lib/utils'
@@ -16,21 +17,22 @@ type ProductCardProps = {
 export function ProductCard({ product, className }: ProductCardProps) {
   return (
     <article className={cn('group flex flex-col', className)}>
-      <a href={productLink(product.slug)} className="relative aspect-square w-full overflow-hidden bg-image-surface">
+      <AppLink href={productLink(product.slug)} className="relative aspect-square w-full overflow-hidden bg-image-surface">
         <img
           src={product.imageUrl}
           alt={product.name}
+          loading="lazy"
           className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
-      </a>
+      </AppLink>
 
       <h3 className="mt-3 text-left text-base text-navy md:text-lg">
-        <a href={productLink(product.slug)} className="hover:text-emerald-deep">
+        <AppLink href={productLink(product.slug)} className="hover:text-emerald-deep">
           {product.name}
-        </a>
+        </AppLink>
       </h3>
 
-      <div className="mt-2 flex w-full items-center justify-center rounded-sm bg-gold-surface px-3 py-2.5">
+      <div className="surface-highlight mt-2 flex w-full items-center justify-center px-3 py-2.5">
         <p className="text-sm text-navy md:text-base">
           Starting at{' '}
           <span className="text-lg md:text-xl">{formatStartingPrice(product.price)}</span>
@@ -51,7 +53,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
           className="h-10 w-full whitespace-normal text-center text-xs leading-tight sm:text-sm"
           asChild
         >
-          <a href={productLink(product.slug)}>{shopCopy.viewProduct}</a>
+          <AppLink href={productLink(product.slug)}>{shopCopy.viewProduct}</AppLink>
         </Button>
       </div>
     </article>

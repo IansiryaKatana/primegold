@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import { MotionSection, RevealBlock } from '@/components/motion'
+import { AppLink } from '@/components/shared/AppLink'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -91,7 +92,7 @@ export function CheckoutPage() {
             <h1 className="text-heading text-primary-text">Checkout</h1>
             <p className="mt-4 text-muted-text">Your cart is empty. Add products before checking out.</p>
             <Button variant="emerald" className="mt-6" asChild>
-              <a href={links.shop}>Browse Products</a>
+              <AppLink href={links.shop}>Browse Products</AppLink>
             </Button>
           </Container>
         </MotionSection>
@@ -107,10 +108,10 @@ export function CheckoutPage() {
         <Container>
           <RevealBlock scroll={false}>
           <Button variant="ghost" className="mb-6 -ml-2 text-emerald-deep" asChild>
-            <a href={links.cart}>
+            <AppLink href={links.cart}>
               <ChevronLeft className="size-4" />
               Back to cart
-            </a>
+            </AppLink>
           </Button>
 
           <h1 className="text-heading text-primary-text">Checkout</h1>

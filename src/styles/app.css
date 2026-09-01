@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Pliant", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --color-emerald-deep: #003d2b;
   --color-emerald-dark: #001f17;
   --color-emerald-hover: #002a1e;
@@ -35,12 +35,12 @@
   }
 
   body {
-    @apply bg-white font-sans font-extralight text-primary-text antialiased;
+    @apply bg-white font-sans font-light text-primary-text antialiased;
     overflow-x: clip;
   }
 
   [id] {
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: var(--site-chrome-height, 7rem);
   }
 
   h1,
@@ -49,23 +49,23 @@
   h4,
   h5,
   h6 {
-    font-weight: 400;
+    font-weight: 500;
   }
 
   p,
-  a,
   li,
-  span,
-  div,
   input,
   select,
   textarea,
   label,
   th,
-  td,
+  td {
+    font-weight: 300;
+  }
+
   strong,
   b {
-    font-weight: 200;
+    font-weight: 500;
   }
 
   button {
@@ -80,19 +80,142 @@
 
 @layer utilities {
   .text-desc {
-    @apply text-base font-extralight leading-relaxed text-muted-text md:text-lg;
+    @apply text-base leading-relaxed text-muted-text md:text-lg;
+    font-weight: 300;
+  }
+
+  .text-desc-inverse {
+    @apply text-base leading-relaxed text-white/80 md:text-lg;
+    font-weight: 300;
   }
 
   .text-heading {
     @apply text-4xl tracking-tight md:text-5xl lg:text-6xl;
+    font-weight: 500;
   }
 
   .text-heading-inverse {
     @apply text-4xl tracking-tight text-white md:text-5xl lg:text-6xl;
+    font-weight: 500;
   }
 
-  .text-heading-lg {
-    @apply text-4xl tracking-tight sm:text-5xl md:text-6xl lg:text-7xl;
+  .text-hero {
+    @apply text-[1.75rem] leading-snug tracking-tight sm:text-4xl md:text-[2.5rem] md:leading-snug lg:text-5xl lg:leading-[1.2];
+    font-weight: 500;
+  }
+
+  .text-subheading {
+    @apply text-2xl md:text-3xl;
+    font-weight: 500;
+  }
+
+  .text-label {
+    @apply text-xs uppercase tracking-[0.15em] md:text-sm;
+    font-weight: 500;
+  }
+
+  /* Premium surfaces — soft rings instead of hard borders + drop shadows */
+  .surface-panel {
+    @apply rounded-lg bg-gradient-to-b from-white to-[#faf9f6] ring-1 ring-primary-text/[0.06];
+  }
+
+  .surface-panel-muted {
+    @apply rounded-lg bg-[#f7f6f3] ring-1 ring-primary-text/[0.05];
+  }
+
+  .surface-interactive {
+    @apply rounded-lg bg-gradient-to-b from-white to-[#faf9f6] ring-1 ring-primary-text/[0.06] transition-[background-color,box-shadow] duration-200 hover:bg-white hover:ring-gold/25;
+  }
+
+  .surface-feature {
+    @apply rounded-md bg-cream/20 ring-1 ring-gold/15;
+  }
+
+  .surface-inset {
+    @apply rounded-md bg-primary-text/[0.03] ring-1 ring-primary-text/[0.05];
+  }
+
+  .surface-highlight {
+    @apply rounded-md bg-cream/30 ring-1 ring-gold/20;
+  }
+
+  .surface-callout {
+    @apply rounded-md bg-cream/35 ring-1 ring-gold/15;
+  }
+}
+
+/* Interior page hero — visually distinct from sticky emerald-deep header */
+.page-hero {
+  background-color: #001f17;
+}
+
+.page-hero__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(118deg, rgb(0 31 23 / 0.98) 0%, rgb(0 42 30 / 0.92) 42%, rgb(0 61 43 / 0.88) 100%);
+}
+
+.page-hero__mesh {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgb(214 164 59 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(214 164 59 / 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+}
+
+.page-hero__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.page-hero__glow--primary {
+  top: -4rem;
+  right: -2rem;
+  width: min(28rem, 55vw);
+  height: min(28rem, 55vw);
+  background: rgb(214 164 59 / 0.22);
+}
+
+.page-hero__glow--secondary {
+  bottom: -6rem;
+  left: -4rem;
+  width: min(22rem, 45vw);
+  height: min(22rem, 45vw);
+  background: rgb(0 61 43 / 0.55);
+}
+
+.page-hero__rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(214 164 59 / 0.15) 15%,
+    rgb(214 164 59 / 0.55) 50%,
+    rgb(214 164 59 / 0.15) 85%,
+    transparent 100%
+  );
+}
+
+.page-hero__accent {
+  width: 3rem;
+  height: 3px;
+  margin-bottom: 1.25rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #d6a43b 0%, rgb(214 164 59 / 0.25) 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-hero__mesh {
+    opacity: 0.2;
   }
 }
 
@@ -146,12 +269,117 @@
   animation: trust-marquee 32s linear infinite;
 }
 
+.site-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: #001f17;
+  pointer-events: auto;
+}
+
+.site-preloader__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: #001f17;
+}
+
+.site-preloader__panel--top {
+  top: 0;
+}
+
+.site-preloader__panel--bottom {
+  bottom: 0;
+}
+
+.site-preloader__brand {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0 1.5rem;
+}
+
+.site-preloader__logo {
+  height: 2.75rem;
+  width: auto;
+  max-width: min(16rem, 70vw);
+  object-fit: contain;
+}
+
+.site-preloader__line {
+  height: 2px;
+  width: min(14rem, 55vw);
+  transform: scaleX(0);
+  transform-origin: center;
+  background: #d6a43b;
+}
+
+.site-preloader.is-done,
+html.preload-skip .site-preloader {
+  display: none;
+}
+
+.route-transition {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  background: rgb(0 31 23 / 0.92);
+}
+
+.route-transition__orbit {
+  animation: route-bar-spin 0.85s linear infinite;
+}
+
+.route-transition__bar {
+  display: block;
+  width: 2.75rem;
+  height: 3px;
+  border-radius: 9999px;
+  background: #d6a43b;
+  box-shadow: 0 0 24px rgb(214 164 59 / 0.5);
+}
+
+@keyframes route-bar-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-trust-marquee {
+  animation-duration: 18s;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .trust-marquee-track {
     animation: none;
     width: 100%;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     row-gap: 0.75rem;
+  }
+
+  .route-transition__orbit {
+    animation: none;
+  }
+
+  .site-preloader {
+    display: none;
   }
 }

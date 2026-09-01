@@ -3,6 +3,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
+import { AppLink } from '@/components/shared/AppLink'
 import { Container } from '@/components/shared/primitives'
 import { Button } from '@/components/ui/button'
 import { getOrdersForEmail } from '@/server/functions'
@@ -53,10 +54,10 @@ function OrdersPage() {
           {loading ? (
             <p className="mt-6 text-muted-text">Loading orders…</p>
           ) : !email ? (
-            <div className="mt-6 rounded-sm border border-warm-border bg-white p-6">
+            <div className="surface-panel mt-6 p-6">
               <p className="text-muted-text">Sign in to view your orders.</p>
               <Button variant="emerald" className="mt-4" asChild>
-                <a href={links.login}>Sign In</a>
+                <AppLink href={links.login}>Sign In</AppLink>
               </Button>
             </div>
           ) : orders.length === 0 ? (
@@ -64,22 +65,22 @@ function OrdersPage() {
           ) : (
             <StaggerGrid className="mt-8 flex flex-col gap-4" stagger={0.06}>
               {orders.map((order) => (
-                <a
+                <AppLink
                   key={order.orderNumber}
                   href={`${links.accountOrders}/${order.orderNumber}`}
-                  className="rounded-sm border border-warm-border bg-white p-4 hover:shadow-md"
+                  className="surface-interactive block p-4"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="text-primary-text">{order.orderNumber}</span>
                     <span className="text-gold">{formatCurrency(order.total)}</span>
                     <span className="text-sm capitalize text-muted-text">{order.status}</span>
                   </div>
-                </a>
+                </AppLink>
               ))}
             </StaggerGrid>
           )}
           <Button variant="outlineGold" className="mt-8" asChild>
-            <a href={links.account}>Back to Account</a>
+            <AppLink href={links.account}>Back to Account</AppLink>
           </Button>
         </Container>
       </MotionSection>

@@ -12,6 +12,7 @@ import {
   User,
 } from 'lucide-react'
 import { BrandLogo } from '@/components/shared/BrandLogo'
+import { AppLink } from '@/components/shared/AppLink'
 import { brand } from '@/data/copy'
 import { footerNavColumns, links } from '@/lib/links'
 import { Button } from '@/components/ui/button'
@@ -93,10 +94,10 @@ export function MobileNavDrawer() {
 
             <div className="grid grid-cols-2 gap-2">
               <Button variant="outline" className="h-auto flex-col gap-1.5 py-3" asChild>
-                <a href={links.account} onClick={close}>
+                <AppLink href={links.account} onClick={close}>
                   <User className="size-5 text-gold" />
                   <span className="text-xs">Account</span>
-                </a>
+                </AppLink>
               </Button>
               <Button variant="outline" className="h-auto flex-col gap-1.5 py-3" asChild>
                 <a href={`tel:${brand.phone.replace(/\D/g, '')}`} onClick={close}>
@@ -107,13 +108,13 @@ export function MobileNavDrawer() {
             </div>
 
             <div>
-              <p className="mb-2 text-xs font-normal uppercase tracking-[0.15em] text-gold">
+              <p className="text-label mb-2 text-gold">
                 Quick Links
               </p>
-              <div className="overflow-hidden rounded-sm border border-warm-border">
+              <div className="surface-inset overflow-hidden">
                 {featuredLinks.map((link, i) => (
                   <div key={link.label}>
-                    <a
+                    <AppLink
                       href={link.href}
                       onClick={close}
                       className="flex items-center gap-3 px-4 py-3.5 text-sm text-primary-text transition-colors hover:bg-cream md:text-base"
@@ -121,7 +122,7 @@ export function MobileNavDrawer() {
                       <link.icon className="size-5 shrink-0 text-gold" aria-hidden />
                       {link.label}
                       <ChevronRight className="ml-auto size-4 text-gold/70" aria-hidden />
-                    </a>
+                    </AppLink>
                     {i < featuredLinks.length - 1 && <Separator />}
                   </div>
                 ))}
@@ -131,20 +132,20 @@ export function MobileNavDrawer() {
             <Accordion type="multiple" defaultValue={['shop']} className="w-full">
               {menuGroups.map((group) => (
                 <AccordionItem key={group.id} value={group.id} className="border-warm-border">
-                  <AccordionTrigger className="py-3.5 text-sm uppercase tracking-[0.12em] text-primary-text hover:text-gold md:text-base">
+                  <AccordionTrigger className="text-label py-3.5 text-primary-text hover:text-gold">
                     {group.title}
                   </AccordionTrigger>
                   <AccordionContent className="pb-2">
                     <ul className="flex flex-col gap-0.5">
                       {group.items.map((item) => (
                         <li key={item.label}>
-                          <a
+                          <AppLink
                             href={item.href}
                             onClick={close}
                             className="block rounded-sm px-2 py-2 text-sm text-muted-text transition-colors hover:bg-cream hover:text-primary-text"
                           >
                             {item.label}
-                          </a>
+                          </AppLink>
                         </li>
                       ))}
                     </ul>
@@ -157,14 +158,14 @@ export function MobileNavDrawer() {
 
         <div className="shrink-0 space-y-2 border-t border-warm-border bg-cream px-6 py-4">
           <Button variant="emerald" className="w-full" asChild>
-            <a href={links.locations} onClick={close}>
+            <AppLink href={links.locations} onClick={close}>
               Book an Appointment
-            </a>
+            </AppLink>
           </Button>
           <Button variant="gold" className="w-full" asChild>
-            <a href={links.shop} onClick={close}>
+            <AppLink href={links.shop} onClick={close}>
               Shop All Products
-            </a>
+            </AppLink>
           </Button>
         </div>
       </SheetContent>

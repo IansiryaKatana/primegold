@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { Check, X } from 'lucide-react'
 import { links } from '@/lib/links'
+import { AppLink } from '@/components/shared/AppLink'
 import { homeCopy } from '@/data/copy'
 import type { ComparisonRow } from '@/lib/types'
 import { MotionSection, RevealBlock } from '@/components/motion'
@@ -72,8 +73,41 @@ export function ComparisonSection({ rows }: ComparisonSectionProps) {
         <SectionHeading title={homeCopy.comparison.title} />
 
         <div className="grid gap-8 lg:grid-cols-3">
-          <div className="min-w-0 overflow-x-auto lg:col-span-2">
-            <Table className="min-w-[32rem]">
+          <div className="min-w-0 lg:col-span-2">
+            <div className="flex flex-col gap-3 lg:hidden">
+              {rows.map((row) => (
+                <div
+                  key={row.feature}
+                  className="surface-panel p-4"
+                >
+                  <p className="text-sm text-primary-text md:text-base">{row.feature}</p>
+                  <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
+                    <div className="rounded-sm bg-emerald-deep/5 p-2 text-center">
+                      <p className="text-label text-emerald-deep">Prime Gold</p>
+                      <div className="mt-1 flex justify-center">
+                        {row.primeGold ? (
+                          <Check className="size-5 text-green-600" />
+                        ) : (
+                          <X className="size-5 text-red-500" />
+                        )}
+                      </div>
+                    </div>
+                    <div className="p-2 text-center">
+                      <p className="text-label text-muted-text">Others</p>
+                      <div className="mt-1 flex justify-center">
+                        {row.otherDealers ? (
+                          <Check className="size-5 text-green-600" />
+                        ) : (
+                          <X className="size-5 text-red-500" />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="surface-panel hidden overflow-x-auto lg:block">
+              <Table className="min-w-[32rem]">
               <TableHeader>
                 <TableRow>
                   <TableHead>Feature</TableHead>
@@ -85,6 +119,7 @@ export function ComparisonSection({ rows }: ComparisonSectionProps) {
               </TableHeader>
               <AnimatedTableBody rows={rows} />
             </Table>
+            </div>
           </div>
 
           <RevealBlock delay={0.2}>
@@ -95,11 +130,11 @@ export function ComparisonSection({ rows }: ComparisonSectionProps) {
                 </h3>
                 <RatingStars rating={5} />
                 <p className="text-5xl text-gold md:text-6xl">4.9/5</p>
-                <p className="text-base font-extralight text-white/80 md:text-lg">
+                <p className="text-desc-inverse">
                   Based on 50,000+ reviews
                 </p>
                 <Button variant="outlineGold" asChild>
-                  <a href={links.testimonials}>See Our Reviews</a>
+                  <AppLink href={links.testimonials}>See Our Reviews</AppLink>
                 </Button>
               </CardContent>
             </Card>

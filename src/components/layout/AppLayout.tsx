@@ -5,7 +5,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Footer } from '@/components/layout/Footer'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { TopMarketBar } from '@/components/layout/TopMarketBar'
-import { MotionPage, MotionProvider } from '@/components/motion'
+import {
+  MotionPage,
+  MotionProvider,
+  MotionReadyProvider,
+  RouteTransition,
+  SitePreloader,
+} from '@/components/motion'
 import { Toaster } from '@/components/ui/sonner'
 
 const queryClient = new QueryClient({
@@ -42,19 +48,23 @@ export function AppLayout({ children }: { children: ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MotionProvider>
-        <div className="flex min-h-screen flex-col overflow-x-clip">
-          <div ref={chromeRef}>
-            <TopMarketBar />
-            <SiteHeader />
+      <MotionReadyProvider>
+        <MotionProvider>
+          <SitePreloader />
+          <RouteTransition />
+          <div className="flex min-h-dvh flex-col overflow-x-clip">
+            <div ref={chromeRef}>
+              <TopMarketBar />
+              <SiteHeader />
+            </div>
+            <main className="flex-1">
+              <MotionPage>{children}</MotionPage>
+            </main>
+            <Footer />
           </div>
-          <main className="flex-1">
-            <MotionPage>{children}</MotionPage>
-          </main>
-          <Footer />
-        </div>
-        <Toaster />
-      </MotionProvider>
+          <Toaster />
+        </MotionProvider>
+      </MotionReadyProvider>
     </QueryClientProvider>
   )
 }

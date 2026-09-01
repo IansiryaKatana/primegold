@@ -27,6 +27,7 @@ function PressLogoMark({
       src={logo.logoUrl}
       alt=""
       aria-hidden
+      loading="lazy"
       className={cn(
         'h-7 w-auto max-w-[130px] object-contain transition-opacity group-hover:opacity-80 md:h-8',
         variant === 'dark' && 'brightness-0 invert opacity-90',

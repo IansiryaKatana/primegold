@@ -1,6 +1,6 @@
 import type { LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { RevealBlock, RevealText } from '@/components/motion'
+import { RevealBlock } from '@/components/motion'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 
@@ -25,9 +25,9 @@ export function SectionHeading({
         className,
       )}
     >
-      <RevealText as="h2" className="text-heading text-primary-text">
-        {title}
-      </RevealText>
+      <RevealBlock>
+        <h2 className="text-heading text-primary-text">{title}</h2>
+      </RevealBlock>
       {subtitle && (
         <RevealBlock delay={0.15} className="max-w-2xl">
           <p className="text-desc">{subtitle}</p>

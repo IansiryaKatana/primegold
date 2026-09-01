@@ -1,6 +1,7 @@
 'use client'
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { AppLink } from '@/components/shared/AppLink'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
 import { useCartStore, useCartHydrated } from '@/store/cart'
@@ -55,7 +56,7 @@ export function CartDrawer() {
                 <ShoppingCart className="size-12 text-muted-text/40" />
                 <p className="text-sm text-muted-text">Your cart is empty.</p>
                 <Button variant="emerald" asChild onClick={() => setDrawerOpen(false)}>
-                  <a href={links.shop}>Browse Products</a>
+                  <AppLink href={links.shop}>Browse Products</AppLink>
                 </Button>
               </motion.div>
             ) : (

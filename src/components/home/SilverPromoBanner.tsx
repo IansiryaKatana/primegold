@@ -2,7 +2,8 @@
 
 import { links } from '@/lib/links'
 import { homeCopy } from '@/data/copy'
-import { MotionSection, RevealBlock, RevealText } from '@/components/motion'
+import { MotionSection, RevealBlock } from '@/components/motion'
+import { AppLink } from '@/components/shared/AppLink'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/shared/primitives'
 
@@ -15,22 +16,21 @@ export function SilverPromoBanner() {
             <img
               src="/coins.png"
               alt="Prime Gold Trading coins"
+              loading="lazy"
               className="mx-auto max-h-72 w-full object-contain drop-shadow-2xl lg:mx-0"
             />
           </RevealBlock>
 
           <div className="text-center lg:text-left">
-            <RevealText as="h2" className="text-4xl tracking-tight text-white md:text-5xl lg:text-6xl">
-              {homeCopy.silver.title}
-            </RevealText>
+            <RevealBlock>
+              <h2 className="text-heading-inverse">{homeCopy.silver.title}</h2>
+            </RevealBlock>
             <RevealBlock delay={0.15} className="mt-4">
-              <p className="text-base font-extralight leading-relaxed text-white/80 md:text-lg">
-                {homeCopy.silver.body}
-              </p>
+              <p className="text-desc-inverse">{homeCopy.silver.body}</p>
             </RevealBlock>
             <RevealBlock delay={0.25} className="mt-6">
               <Button variant="gold" size="lg" asChild>
-                <a href={links.silver}>{homeCopy.silver.cta}</a>
+                <AppLink href={links.silver}>{homeCopy.silver.cta}</AppLink>
               </Button>
             </RevealBlock>
           </div>

@@ -3,7 +3,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getInsight } from '@/server/functions'
-import { MotionSection, RevealBlock, RevealText } from '@/components/motion'
+import { AppLink } from '@/components/shared/AppLink'
+import { MotionSection, RevealBlock } from '@/components/motion'
 import { Container } from '@/components/shared/primitives'
 import { links } from '@/lib/links'
 
@@ -27,13 +28,13 @@ function InsightArticlePage() {
       <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container className="max-w-3xl">
           <RevealBlock scroll={false}>
-            <a href={links.insights} className="text-sm text-emerald-deep hover:underline">← Back to Insights</a>
+            <AppLink href={links.insights} className="text-sm text-emerald-deep hover:underline">← Back to Insights</AppLink>
           </RevealBlock>
-          <RevealText as="h1" scroll={false} className="mt-4 text-heading text-primary-text">
-            {article.title}
-          </RevealText>
+          <RevealBlock scroll={false}>
+            <h1 className="mt-4 text-heading text-primary-text">{article.title}</h1>
+          </RevealBlock>
           <RevealBlock delay={0.15} className="mt-8">
-            <img src={article.imageUrl} alt="" className="aspect-video w-full rounded-sm object-cover" />
+            <img src={article.imageUrl} alt="" loading="lazy" className="aspect-video w-full rounded-sm object-cover" />
           </RevealBlock>
           <RevealBlock delay={0.25} className="mt-8">
             <div

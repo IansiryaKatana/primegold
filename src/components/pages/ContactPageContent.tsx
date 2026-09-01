@@ -70,7 +70,7 @@ export function ContactPageContent() {
           <StaggerGrid className="grid gap-6 md:grid-cols-3" stagger={0.1}>
             <a
               href={`tel:${brand.phone.replace(/\D/g, '')}`}
-              className="flex flex-col gap-3 rounded-sm border border-warm-border p-6 transition-shadow hover:shadow-md"
+              className="surface-interactive flex flex-col gap-3 p-6"
             >
               <Phone className="size-6 text-gold" aria-hidden />
               <h2 className="text-lg text-primary-text">{contactCopy.channels[0].title}</h2>
@@ -79,7 +79,7 @@ export function ContactPageContent() {
             </a>
             <a
               href={`mailto:${brand.email}`}
-              className="flex flex-col gap-3 rounded-sm border border-warm-border p-6 transition-shadow hover:shadow-md"
+              className="surface-interactive flex flex-col gap-3 p-6"
             >
               <Mail className="size-6 text-gold" aria-hidden />
               <h2 className="text-lg text-primary-text">{contactCopy.channels[1].title}</h2>
@@ -88,7 +88,7 @@ export function ContactPageContent() {
             </a>
             <a
               href={links.locations}
-              className="flex flex-col gap-3 rounded-sm border border-warm-border p-6 transition-shadow hover:shadow-md"
+              className="surface-interactive flex flex-col gap-3 p-6"
             >
               <MapPin className="size-6 text-gold" aria-hidden />
               <h2 className="text-lg text-primary-text">{contactCopy.channels[2].title}</h2>
@@ -157,7 +157,7 @@ export function ContactPageContent() {
               </form>
             </div>
             <RevealBlock delay={0.15}>
-              <div className="rounded-sm border border-warm-border bg-cream/50 p-6">
+              <div className="surface-panel-muted p-6">
               <h3 className="text-lg text-primary-text">Head Office</h3>
               <address className="mt-4 space-y-2 text-desc not-italic">
                 <p>{brand.address}</p>

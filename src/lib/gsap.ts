@@ -29,21 +29,38 @@ export function scrollReveal(
 ) {
   registerGsapPlugins()
   const { scrollTrigger: scrollTriggerVars, stagger, ...tweenVars } = vars
+  const fromY = typeof tweenVars.y === 'number' ? tweenVars.y : revealDefaults.y
+  const fromX = typeof tweenVars.x === 'number' ? tweenVars.x : 0
+  const fromOpacity =
+    typeof tweenVars.opacity === 'number' ? tweenVars.opacity : revealDefaults.opacity
+  const restTween = { ...tweenVars }
+  delete restTween.y
+  delete restTween.x
+  delete restTween.opacity
 
-  return gsap.from(targets, {
-    y: revealDefaults.y,
-    opacity: revealDefaults.opacity,
-    duration: revealDefaults.duration,
-    ease: revealDefaults.ease,
-    ...tweenVars,
-    stagger: stagger ?? staggerDefaults.amount,
-    scrollTrigger: {
-      ...scrollDefaults,
-      ...(scrollTriggerVars && typeof scrollTriggerVars === 'object'
-        ? scrollTriggerVars
-        : {}),
+  return gsap.fromTo(
+    targets,
+    {
+      y: fromY,
+      x: fromX,
+      opacity: fromOpacity,
     },
-  })
+    {
+      y: 0,
+      x: 0,
+      opacity: 1,
+      duration: revealDefaults.duration,
+      ease: revealDefaults.ease,
+      ...restTween,
+      stagger: stagger ?? staggerDefaults.amount,
+      scrollTrigger: {
+        ...scrollDefaults,
+        ...(scrollTriggerVars && typeof scrollTriggerVars === 'object'
+          ? scrollTriggerVars
+          : {}),
+      },
+    },
+  )
 }
 
 export type SplitTextRevealOptions = {
@@ -90,22 +107,27 @@ export function splitTextReveal(
         ? split.words
         : split.chars
 
-  const tween = gsap.from(targets, {
-    y,
-    opacity: 0,
-    duration,
-    delay,
-    stagger,
-    ease: motionEase,
-    scrollTrigger:
-      scrollTrigger === false
-        ? undefined
-        : {
-            ...scrollDefaults,
-            trigger: element,
-            ...scrollTrigger,
-          },
-  })
+  const tween = gsap.fromTo(
+    targets,
+    { y, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration,
+      delay,
+      stagger,
+      ease: motionEase,
+      scrollTrigger:
+        scrollTrigger === false
+          ? undefined
+          : {
+              ...scrollDefaults,
+              once: true,
+              trigger: element,
+              ...scrollTrigger,
+            },
+    },
+  )
 
   return {
     split,

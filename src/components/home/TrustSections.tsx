@@ -10,7 +10,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { homeCopy } from '@/data/copy'
-import { MotionSection, RevealBlock, RevealText, StaggerGrid } from '@/components/motion'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { useGSAP, scrollReveal } from '@/lib/gsap'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { TrustBadge, Container } from '@/components/shared/primitives'

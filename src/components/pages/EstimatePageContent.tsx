@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import { estimateCopy } from '@/data/copy'
+import { AppLink } from '@/components/shared/AppLink'
 import { links } from '@/lib/links'
-import { MotionSection, RevealBlock, RevealText, StaggerGrid } from '@/components/motion'
+import { MotionSection, RevealBlock, StaggerGrid } from '@/components/motion'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -69,7 +70,7 @@ export function EstimatePageContent() {
           <div className="grid gap-10 lg:grid-cols-2">
             <form
               onSubmit={handleCalculate}
-              className="flex flex-col gap-4 rounded-sm border border-warm-border bg-white p-6 shadow-sm"
+              className="surface-panel flex flex-col gap-4 p-6"
             >
               <div className="flex flex-col gap-2">
                 <Label>{estimateCopy.materialLabel}</Label>
@@ -138,7 +139,7 @@ export function EstimatePageContent() {
                 {estimateCopy.rateTableTitle}
               </h2>
               <p className="mt-2 text-sm text-muted-text">{estimateCopy.rateTableNote}</p>
-              <div className="mt-6 overflow-hidden rounded-sm border border-warm-border">
+              <div className="surface-inset mt-6 overflow-hidden">
                 <table className="w-full text-sm md:text-base">
                   <thead className="bg-emerald-deep text-left text-white">
                     <tr>
@@ -163,9 +164,9 @@ export function EstimatePageContent() {
 
       <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container className="max-w-3xl">
-          <RevealText as="h2" className="text-2xl text-primary-text md:text-3xl">
-            {estimateCopy.education.title}
-          </RevealText>
+          <RevealBlock>
+            <h2 className="text-subheading text-primary-text">{estimateCopy.education.title}</h2>
+          </RevealBlock>
           <StaggerGrid className="mt-6 flex flex-col gap-3" stagger={0.08}>
             {estimateCopy.education.points.map((point) => (
               <li key={point} className="flex items-start gap-3 text-desc">
@@ -176,7 +177,7 @@ export function EstimatePageContent() {
           </StaggerGrid>
           <RevealBlock className="mt-8">
             <Button variant="gold" asChild>
-              <a href={links.locations}>Book an In-Branch Appraisal</a>
+              <AppLink href={links.locations}>Book an In-Branch Appraisal</AppLink>
             </Button>
           </RevealBlock>
         </Container>

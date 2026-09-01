@@ -1,6 +1,7 @@
 'use client'
 
 import { Phone, Search, User } from 'lucide-react'
+import { AppLink } from '@/components/shared/AppLink'
 import { BrandLogo } from '@/components/shared/BrandLogo'
 import { navLinks } from '@/lib/links'
 import { links } from '@/lib/links'
@@ -13,12 +14,12 @@ import { Container } from '@/components/shared/primitives'
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 bg-emerald-deep shadow-lg">
+    <header className="sticky top-0 z-50 border-b border-gold/15 bg-emerald-deep shadow-lg shadow-black/20">
       <Container>
         <div className="flex items-center gap-3 py-3 sm:gap-4">
-          <a href={links.home} className="flex min-w-0 shrink-0 items-center">
+          <AppLink href={links.home} className="flex min-w-0 shrink-0 items-center">
             <BrandLogo className="h-9 sm:h-10 md:h-11" />
-          </a>
+          </AppLink>
 
           <div className="mx-auto hidden min-w-0 max-w-md flex-1 items-center gap-0 lg:flex">
             <form action={links.shop} method="get" className="flex flex-1">
@@ -40,15 +41,15 @@ export function SiteHeader() {
               className="text-white hover:bg-white/10 sm:hidden"
               asChild
             >
-              <a href={links.account} aria-label="My Account">
+              <AppLink href={links.account} aria-label="My Account">
                 <User />
-              </a>
+              </AppLink>
             </Button>
             <Button variant="ghost" size="sm" className="hidden text-white hover:bg-white/10 lg:inline-flex" asChild>
-              <a href={links.account}>
+              <AppLink href={links.account}>
                 <User />
                 My Account
-              </a>
+              </AppLink>
             </Button>
             <CartDrawer />
             <a
@@ -66,12 +67,12 @@ export function SiteHeader() {
           <ul className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 xl:justify-between xl:gap-x-5">
             {navLinks.map((link) => (
               <li key={link.label}>
-                <a
+                <AppLink
                   href={link.href}
                   className="text-sm text-white/90 transition-colors hover:text-gold md:text-base"
                 >
                   {link.label}
-                </a>
+                </AppLink>
               </li>
             ))}
           </ul>

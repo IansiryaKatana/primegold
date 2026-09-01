@@ -3,6 +3,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getBranch } from '@/server/functions'
+import { AppLink } from '@/components/shared/AppLink'
 import { locationsCopy } from '@/data/copy'
 import { links } from '@/lib/links'
 import { MotionSection, StaggerGrid } from '@/components/motion'
@@ -50,7 +51,7 @@ function BranchDetailPage() {
         ]}
       >
         <Button variant="gold" asChild>
-          <a href={`${links.home}#locations`}>{locationsCopy.bookHere}</a>
+          <AppLink href={`${links.home}#locations`}>{locationsCopy.bookHere}</AppLink>
         </Button>
         <Button variant="outlineGold" asChild>
           <a href={`tel:${branch.phone.replace(/\D/g, '')}`}>{locationsCopy.callBranch}</a>
@@ -59,7 +60,7 @@ function BranchDetailPage() {
       <MotionSection tier="b" className="bg-white py-16 md:py-20">
         <Container>
           <StaggerGrid className="grid gap-8 md:grid-cols-2" stagger={0.12}>
-            <div className="flex flex-col gap-4 rounded-sm border border-warm-border p-6">
+            <div className="surface-panel flex flex-col gap-4 p-6">
               <h2 className="text-xl text-primary-text">Branch Details</h2>
               <p className="flex items-start gap-3 text-desc">
                 <MapPin className="mt-0.5 size-5 shrink-0 text-gold" aria-hidden />
@@ -82,7 +83,7 @@ function BranchDetailPage() {
                 </span>
               </p>
             </div>
-            <div className="rounded-sm border border-warm-border bg-cream/50 p-6">
+            <div className="surface-panel-muted p-6">
               <h2 className="text-xl text-primary-text">{locationsCopy.services}</h2>
               <ul className="mt-4 flex flex-col gap-2 text-desc">
                 <li>Free gold & jewelry appraisals</li>

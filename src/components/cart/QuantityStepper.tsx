@@ -20,7 +20,7 @@ export function QuantityStepper({
   className,
 }: QuantityStepperProps) {
   return (
-    <div className={cn('inline-flex items-center rounded-sm border border-warm-border', className)}>
+    <div className={cn('surface-inset inline-flex items-center overflow-hidden', className)}>
       <Button
         type="button"
         variant="ghostDark"

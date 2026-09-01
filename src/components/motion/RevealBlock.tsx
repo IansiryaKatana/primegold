@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from 'react'
 import { useGSAP, gsap, scrollReveal } from '@/lib/gsap'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { useMotionReady } from '@/components/motion/SitePreloader'
 import { cn } from '@/lib/utils'
 
 type RevealBlockProps = {
@@ -25,14 +26,14 @@ export function RevealBlock({
 }: RevealBlockProps) {
   const ref = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
+  const ready = useMotionReady()
 
   useGSAP(
     () => {
-      if (!ref.current || reduced) {
-        if (ref.current) {
-          ref.current.style.opacity = '1'
-          ref.current.style.transform = 'none'
-        }
+      if (!ref.current) return
+      if (!ready || reduced) {
+        ref.current.style.opacity = '1'
+        ref.current.style.transform = 'none'
         return
       }
 
@@ -44,17 +45,21 @@ export function RevealBlock({
           scrollTrigger: { trigger: ref.current, once: true },
         })
       } else {
-        gsap.from(ref.current, {
-          y,
-          x,
-          opacity: 0,
-          duration: 0.65,
-          delay,
-          ease: 'power3.out',
-        })
+        gsap.fromTo(
+          ref.current,
+          { y, x: x ?? 0, opacity: 0 },
+          {
+            y: 0,
+            x: 0,
+            opacity: 1,
+            duration: 0.65,
+            delay,
+            ease: 'power3.out',
+          },
+        )
       }
     },
-    { scope: ref, dependencies: [reduced, scroll, delay, x, y] },
+    { scope: ref, dependencies: [reduced, scroll, delay, x, y, ready] },
   )
 
   return (

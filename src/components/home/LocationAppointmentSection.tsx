@@ -107,7 +107,7 @@ function LocationFinderCard() {
             {branches.map((branch) => (
               <div
                 key={branch.id}
-                className="rounded-sm border border-warm-border p-3 text-base"
+                className="surface-inset p-3 text-base"
               >
                 <p className="text-primary-text">{branch.name}</p>
                 <p className="text-muted-text">
@@ -182,7 +182,7 @@ function AppointmentForm() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <TabsContent value="in_branch" className="mt-0">
-              <p className="rounded-sm border border-warm-border bg-cream/50 px-3 py-2.5 text-sm text-muted-text">
+              <p className="surface-callout px-3 py-2.5 text-sm text-muted-text">
                 Visit any Prime Gold branch for your appointment. We will confirm your nearest location by email.
               </p>
             </TabsContent>
